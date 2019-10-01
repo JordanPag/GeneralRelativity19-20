@@ -90,25 +90,25 @@ public class TeleOpGeneral19_20 extends OpMode {
             //Strafing with right stick
             if(gamepad1.left_bumper){
                 FrontLeft.setPower(-gamepad1.right_stick_x/2);
-                FrontRight.setPower(-gamepad1.right_stick_x/2);
+                FrontRight.setPower(gamepad1.right_stick_x/2);
                 BackLeft.setPower(gamepad1.right_stick_x/2);
-                BackRight.setPower(gamepad1.right_stick_x/2);
+                BackRight.setPower(-gamepad1.right_stick_x/2);
             }
             else{
                 FrontLeft.setPower(-gamepad1.right_stick_x);
-                FrontRight.setPower(-gamepad1.right_stick_x);
+                FrontRight.setPower(gamepad1.right_stick_x);
                 BackLeft.setPower(gamepad1.right_stick_x);
-                BackRight.setPower(gamepad1.right_stick_x);
+                BackRight.setPower(-gamepad1.right_stick_x);
             }
 
         } else if (gamepad1.left_stick_y < -threshold || gamepad1.left_stick_y > threshold || gamepad1.left_stick_x < -threshold || gamepad1.left_stick_x > threshold) {
             //Forward/backward and turning with left stick
 
-            double drive = -gamepad1.left_stick_y;
+            double drive = gamepad1.left_stick_y;
             double turn = gamepad1.left_stick_x;
             //make sure left and right power are outside thres
-            double leftPower = Range.clip(drive + turn, -1.0, 1.0);
-            double rightPower = Range.clip(drive - turn, -1.0, 1.0);
+            double leftPower = Range.clip(drive + turn, -1.0, 1.0) * 0.8;
+            double rightPower = Range.clip(drive - turn, -1.0, 1.0) * 0.8;
 
             if (leftPower > threshold || leftPower < -threshold || rightPower < -threshold || rightPower > threshold) {
                 if (gamepad1.left_bumper) {
