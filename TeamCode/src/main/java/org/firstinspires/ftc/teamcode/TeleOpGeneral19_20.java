@@ -39,8 +39,8 @@ public class TeleOpGeneral19_20 extends OpMode {
         BackLeft = hardwareMap.get(DcMotor.class, "BackLeft");
         FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
         BackRight = hardwareMap.get(DcMotor.class, "BackRight");
-        IntakeLeft = hardwareMap.get(DcMotor.class, "IntakeLeft");
-        IntakeRight = hardwareMap.get(DcMotor.class, "IntakeRight");
+        //IntakeLeft = hardwareMap.get(DcMotor.class, "IntakeLeft");
+        //IntakeRight = hardwareMap.get(DcMotor.class, "IntakeRight");
         //Servo1 = hardwareMap.get(Servo.class, "Servo1");
 
 
@@ -51,15 +51,15 @@ public class TeleOpGeneral19_20 extends OpMode {
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
         BackRight.setDirection(DcMotor.Direction.FORWARD);
-        IntakeLeft.setDirection(DcMotor.Direction.FORWARD);
-        IntakeRight.setDirection(DcMotor.Direction.REVERSE);
+        //IntakeLeft.setDirection(DcMotor.Direction.FORWARD);
+        //IntakeRight.setDirection(DcMotor.Direction.REVERSE);
 
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        IntakeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        IntakeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        //IntakeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        //IntakeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -144,11 +144,11 @@ public class TeleOpGeneral19_20 extends OpMode {
         //intake motors
         double intakePower = .9;
         if (gamepad1.right_trigger > .2) {
-            IntakeRight.setPower(intakePower);
-            IntakeLeft.setPower(intakePower);
+            //IntakeRight.setPower(intakePower);
+            //IntakeLeft.setPower(intakePower);
         } else{
-            IntakeRight.setPower(0);
-            IntakeLeft.setPower(0);
+            //IntakeRight.setPower(0);
+            //IntakeLeft.setPower(0);
         }
 
 
