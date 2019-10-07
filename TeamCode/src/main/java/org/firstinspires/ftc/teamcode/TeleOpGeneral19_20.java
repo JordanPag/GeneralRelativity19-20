@@ -25,6 +25,7 @@ public class TeleOpGeneral19_20 extends OpMode {
     private DcMotor BackRight;
     private DcMotor IntakeLeft;
     private DcMotor IntakeRight;
+    private DcMotor Treadmill;
     //private Servo Servo1;
     double startTime = runtime.milliseconds();
 
@@ -39,8 +40,9 @@ public class TeleOpGeneral19_20 extends OpMode {
         BackLeft = hardwareMap.get(DcMotor.class, "BackLeft");
         FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
         BackRight = hardwareMap.get(DcMotor.class, "BackRight");
-        //IntakeLeft = hardwareMap.get(DcMotor.class, "IntakeLeft");
-        //IntakeRight = hardwareMap.get(DcMotor.class, "IntakeRight");
+        IntakeLeft = hardwareMap.get(DcMotor.class, "IntakeLeft");
+        IntakeRight = hardwareMap.get(DcMotor.class, "IntakeRight");
+        Treadmill = hardwareMap.get(DcMotor.class, "Treadmill");
         //Servo1 = hardwareMap.get(Servo.class, "Servo1");
 
 
@@ -51,15 +53,17 @@ public class TeleOpGeneral19_20 extends OpMode {
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
         BackRight.setDirection(DcMotor.Direction.FORWARD);
-        //IntakeLeft.setDirection(DcMotor.Direction.FORWARD);
-        //IntakeRight.setDirection(DcMotor.Direction.REVERSE);
+        IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
+        IntakeRight.setDirection(DcMotor.Direction.FORWARD);
+        Treadmill.setDirection(DcMotor.Direction.REVERSE);
 
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //IntakeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        //IntakeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        IntakeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        IntakeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        Treadmill.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -84,7 +88,7 @@ public class TeleOpGeneral19_20 extends OpMode {
      */
 
     public void loop() {
-        double threshold = 0.5;
+        double threshold = 0.2;
 
         if (gamepad1.right_stick_x < -threshold || gamepad1.right_stick_x > threshold) {
             //Strafing with right stick
@@ -106,7 +110,7 @@ public class TeleOpGeneral19_20 extends OpMode {
 
             double drive = gamepad1.left_stick_y;
             double turn = gamepad1.left_stick_x;
-            //make sure left and right power are outside thres
+            //make sure left and right power are outside threshold
             double leftPower = Range.clip(drive + turn, -1.0, 1.0) * 0.8;
             double rightPower = Range.clip(drive - turn, -1.0, 1.0) * 0.8;
 
@@ -144,11 +148,13 @@ public class TeleOpGeneral19_20 extends OpMode {
         //intake motors
         double intakePower = .9;
         if (gamepad1.right_trigger > .2) {
-            //IntakeRight.setPower(intakePower);
-            //IntakeLeft.setPower(intakePower);
+            IntakeRight.setPower(intakePower);
+            IntakeLeft.setPower(intakePower);
+            Treadmill.setPower(intakePower);
         } else{
-            //IntakeRight.setPower(0);
-            //IntakeLeft.setPower(0);
+            IntakeRight.setPower(0);
+            IntakeLeft.setPower(0);
+            Treadmill.setPower(0);
         }
 
 

@@ -26,7 +26,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "BLUE 2", group = "Sensor")
+@Autonomous(name = "Auto testing", group = "Sensor")
 public class Auto_testing extends LinearOpMode {
 
     // Declare OpMode members.
@@ -65,12 +65,12 @@ public class Auto_testing extends LinearOpMode {
         while (opModeIsActive()) {
             // Start button is pressed
 
-            moveForward(50,1000);
-            moveBackward(50,1000);
-            strafeLeft(50,1000);
-            strafeRight(50,1000);
-            turnLeft(50,1000);
-            turnRight(50,1000);
+            moveForward(0.5,1000);
+            moveBackward(0.5,1000);
+            strafeLeft(0.5,1000);
+            strafeRight(0.5,1000);
+            turnLeft(0.5,1000);
+            turnRight(0.5,1000);
 
             // End of auto
             break;
