@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "Grab_Foundation", group = "Sensor")
-public class GrabFoundation extends LinearOpMode{
+@Autonomous(name = "Grab_Foundation_Blue", group = "Sensor")
+public class GrabFoundationBlue extends LinearOpMode{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -56,10 +56,10 @@ public class GrabFoundation extends LinearOpMode{
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
-        BackLeft.setDirection(DcMotor.Direction.FORWARD);
-        FrontRight.setDirection(DcMotor.Direction.REVERSE);
-        BackRight.setDirection(DcMotor.Direction.REVERSE);
+        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
+        BackLeft.setDirection(DcMotor.Direction.REVERSE);
+        FrontRight.setDirection(DcMotor.Direction.FORWARD);
+        BackRight.setDirection(DcMotor.Direction.FORWARD);
         IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
         IntakeRight.setDirection(DcMotor.Direction.FORWARD);
         Treadmill.setDirection(DcMotor.Direction.REVERSE);
@@ -67,21 +67,35 @@ public class GrabFoundation extends LinearOpMode{
         waitForStart();
         while (opModeIsActive()) {
             // Start button is pressed
-            strafeRightWithEncoders(0.5, 1);
+            FoundationServo.setPosition(0);
+            strafeRightWithEncoders(0.5, 2300);
+            FoundationServo.setPosition(0.5);
+            delay(500);
+            strafeLeftWithEncoders(0.5,2800);
+            FoundationServo.setPosition(0);
+            moveBackwardWithEncoders(0.5, 2000);
 
-
+            break;
             // End of auto
         }
     }
 
-    public void strafeRightWithEncoders(double power, int rots){
+    public void delay(int time) {
+        double startTime = runtime.milliseconds();
+        while (runtime.milliseconds() - startTime < time) {
+        }
+    }
+
+    public void strafeRightWithEncoders(double power, int count){
         int start = FrontLeft.getCurrentPosition();
         FrontLeft.setPower(power);
         FrontRight.setPower(-power);
         BackLeft.setPower(-power);
         BackRight.setPower(power);
-        while(FrontLeft.getCurrentPosition() < start + rots) {
-
+        while(FrontLeft.getCurrentPosition() < start + count) {
+            telemetry.addData("Left motor position", FrontLeft.getCurrentPosition());
+            telemetry.update();
+            idle();
         }
         FrontLeft.setPower(0);
         FrontRight.setPower(0);
@@ -89,11 +103,34 @@ public class GrabFoundation extends LinearOpMode{
         BackRight.setPower(0);
     }
 
-    public void strafeLeftWithEncoders(double power, int time){
+    public void strafeLeftWithEncoders(double power, int count){
+        int start = FrontRight.getCurrentPosition();
         FrontLeft.setPower(-power);
         FrontRight.setPower(power);
         BackLeft.setPower(power);
         BackRight.setPower(-power);
+        while(FrontRight.getCurrentPosition() < start + count) {
+            telemetry.addData("Right motor position", FrontRight.getCurrentPosition());
+            telemetry.update();
+            idle();
+        }
+        FrontLeft.setPower(0);
+        FrontRight.setPower(0);
+        BackLeft.setPower(0);
+        BackRight.setPower(0);
+    }
+
+    public void moveBackwardWithEncoders(double power, int count){
+        int start = FrontLeft.getCurrentPosition();
+        FrontLeft.setPower(-power);
+        FrontRight.setPower(-power);
+        BackLeft.setPower(-power);
+        BackRight.setPower(-power);
+        while(FrontLeft.getCurrentPosition() > start - count) {
+            telemetry.addData("Left motor position", FrontLeft.getCurrentPosition());
+            telemetry.update();
+            idle();
+        }
         FrontLeft.setPower(0);
         FrontRight.setPower(0);
         BackLeft.setPower(0);

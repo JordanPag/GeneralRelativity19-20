@@ -49,10 +49,10 @@ public class TeleOpGeneral19_20 extends OpMode {
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
-        BackLeft.setDirection(DcMotor.Direction.FORWARD);
-        FrontRight.setDirection(DcMotor.Direction.REVERSE);
-        BackRight.setDirection(DcMotor.Direction.REVERSE);
+        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
+        BackLeft.setDirection(DcMotor.Direction.REVERSE);
+        FrontRight.setDirection(DcMotor.Direction.FORWARD);
+        BackRight.setDirection(DcMotor.Direction.FORWARD);
         IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
         IntakeRight.setDirection(DcMotor.Direction.FORWARD);
         Treadmill.setDirection(DcMotor.Direction.REVERSE);
@@ -93,26 +93,26 @@ public class TeleOpGeneral19_20 extends OpMode {
         if (gamepad1.right_stick_x < -threshold || gamepad1.right_stick_x > threshold) {
             //Strafing with right stick
             if(gamepad1.left_bumper){
-                FrontLeft.setPower(-gamepad1.right_stick_x/2);
-                FrontRight.setPower(gamepad1.right_stick_x/2);
-                BackLeft.setPower(gamepad1.right_stick_x/2);
-                BackRight.setPower(-gamepad1.right_stick_x/2);
+                FrontLeft.setPower(gamepad1.right_stick_x/2);
+                FrontRight.setPower(-gamepad1.right_stick_x/2);
+                BackLeft.setPower(-gamepad1.right_stick_x/2);
+                BackRight.setPower(gamepad1.right_stick_x/2);
             }
             else{
-                FrontLeft.setPower(-gamepad1.right_stick_x);
-                FrontRight.setPower(gamepad1.right_stick_x);
-                BackLeft.setPower(gamepad1.right_stick_x);
-                BackRight.setPower(-gamepad1.right_stick_x);
+                FrontLeft.setPower(gamepad1.right_stick_x);
+                FrontRight.setPower(-gamepad1.right_stick_x);
+                BackLeft.setPower(-gamepad1.right_stick_x);
+                BackRight.setPower(gamepad1.right_stick_x);
             }
 
         } else if (gamepad1.left_stick_y < -threshold || gamepad1.left_stick_y > threshold || gamepad1.left_stick_x < -threshold || gamepad1.left_stick_x > threshold) {
             //Forward/backward and turning with left stick
 
-            double drive = gamepad1.left_stick_y;
+            double drive = -gamepad1.left_stick_y;
             double turn = gamepad1.left_stick_x;
             //make sure left and right power are outside threshold
-            double leftPower = Range.clip(drive - turn, -1.0, 1.0) * 0.8;
-            double rightPower = Range.clip(drive + turn, -1.0, 1.0) * 0.8;
+            double leftPower = Range.clip(drive + turn, -1.0, 1.0) * 0.8;
+            double rightPower = Range.clip(drive - turn, -1.0, 1.0) * 0.8;
 
             if (leftPower > threshold || leftPower < -threshold || rightPower < -threshold || rightPower > threshold) {
                 if (gamepad1.left_bumper) {
