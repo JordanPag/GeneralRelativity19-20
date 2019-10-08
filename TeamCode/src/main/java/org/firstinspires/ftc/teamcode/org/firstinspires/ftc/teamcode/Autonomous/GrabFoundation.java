@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.org.firstinspires.ftc.teamcode.Autonomous;
 
 /**
- * Created by Jordan Paglione on 10/3/19
+ * Created by Jordan Paglione on 10/7/19
  */
 
 import android.app.Activity;
@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "Auto testing", group = "Sensor")
-public class Auto_testing extends LinearOpMode {
+@Autonomous(name = "Grab_Foundation", group = "Sensor")
+public class GrabFoundation extends LinearOpMode{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -67,93 +67,33 @@ public class Auto_testing extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             // Start button is pressed
+            strafeRightWithEncoders(0.5, 1);
 
-            moveForward(0.5,1000);
-            moveBackward(0.5,1000);
-            strafeLeft(0.5,1000);
-            strafeRight(0.5,1000);
-            turnLeft(0.5,1000);
-            turnRight(0.5,1000);
 
             // End of auto
-            break;
         }
     }
 
-    // Basic functions
+    public void strafeRightWithEncoders(double power, int rots){
+        int start = FrontLeft.getCurrentPosition();
+        FrontLeft.setPower(power);
+        FrontRight.setPower(-power);
+        BackLeft.setPower(-power);
+        BackRight.setPower(power);
+        while(FrontLeft.getCurrentPosition() < start + rots) {
 
-    public void delay(int time) {
-        double startTime = runtime.milliseconds();
-        while (runtime.milliseconds() - startTime < time) {
         }
-    }
-
-    public void moveForward(double power, int time) {
-        FrontLeft.setPower(power);
-        FrontRight.setPower(power);
-        BackLeft.setPower(power);
-        BackRight.setPower(power);
-        delay(time);
         FrontLeft.setPower(0);
         FrontRight.setPower(0);
         BackLeft.setPower(0);
         BackRight.setPower(0);
     }
 
-    public void moveBackward(double power, int time) {
-        FrontLeft.setPower(-power);
-        FrontRight.setPower(-power);
-        BackLeft.setPower(-power);
-        BackRight.setPower(-power);
-        delay(time);
-        FrontLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackLeft.setPower(0);
-        BackRight.setPower(0);
-    }
-
-    public void strafeRight(double power, int time){
-        FrontLeft.setPower(power);
-        FrontRight.setPower(-power);
-        BackLeft.setPower(-power);
-        BackRight.setPower(power);
-        delay(time);
-        FrontLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackLeft.setPower(0);
-        BackRight.setPower(0);
-    }
-
-    public void strafeLeft(double power, int time){
+    public void strafeLeftWithEncoders(double power, int time){
         FrontLeft.setPower(-power);
         FrontRight.setPower(power);
         BackLeft.setPower(power);
         BackRight.setPower(-power);
-        delay(time);
-        FrontLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackLeft.setPower(0);
-        BackRight.setPower(0);
-    }
-
-    public void turnRight(double power, int time){
-        FrontLeft.setPower(power);
-        FrontRight.setPower(-power);
-        BackLeft.setPower(power);
-        BackRight.setPower(-power);
-        delay(time);
-        FrontLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackLeft.setPower(0);
-        BackRight.setPower(0);
-    }
-
-    public void turnLeft(double power, int time){
-        FrontLeft.setPower(-power);
-        FrontRight.setPower(power);
-        BackLeft.setPower(-power);
-        BackRight.setPower(power);
-        delay(time);
         FrontLeft.setPower(0);
         FrontRight.setPower(0);
         BackLeft.setPower(0);

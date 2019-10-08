@@ -26,7 +26,7 @@ public class TeleOpGeneral19_20 extends OpMode {
     private DcMotor IntakeLeft;
     private DcMotor IntakeRight;
     private DcMotor Treadmill;
-    //private Servo Servo1;
+    private Servo FoundationServo;
     double startTime = runtime.milliseconds();
 
     @Override
@@ -43,16 +43,16 @@ public class TeleOpGeneral19_20 extends OpMode {
         IntakeLeft = hardwareMap.get(DcMotor.class, "IntakeLeft");
         IntakeRight = hardwareMap.get(DcMotor.class, "IntakeRight");
         Treadmill = hardwareMap.get(DcMotor.class, "Treadmill");
-        //Servo1 = hardwareMap.get(Servo.class, "Servo1");
+        FoundationServo = hardwareMap.get(Servo.class, "FoundationServo");
 
 
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
-        BackLeft.setDirection(DcMotor.Direction.REVERSE);
-        FrontRight.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.FORWARD);
+        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
+        BackLeft.setDirection(DcMotor.Direction.FORWARD);
+        FrontRight.setDirection(DcMotor.Direction.REVERSE);
+        BackRight.setDirection(DcMotor.Direction.REVERSE);
         IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
         IntakeRight.setDirection(DcMotor.Direction.FORWARD);
         Treadmill.setDirection(DcMotor.Direction.REVERSE);
@@ -111,8 +111,8 @@ public class TeleOpGeneral19_20 extends OpMode {
             double drive = gamepad1.left_stick_y;
             double turn = gamepad1.left_stick_x;
             //make sure left and right power are outside threshold
-            double leftPower = Range.clip(drive + turn, -1.0, 1.0) * 0.8;
-            double rightPower = Range.clip(drive - turn, -1.0, 1.0) * 0.8;
+            double leftPower = Range.clip(drive - turn, -1.0, 1.0) * 0.8;
+            double rightPower = Range.clip(drive + turn, -1.0, 1.0) * 0.8;
 
             if (leftPower > threshold || leftPower < -threshold || rightPower < -threshold || rightPower > threshold) {
                 if (gamepad1.left_bumper) {
@@ -160,16 +160,13 @@ public class TeleOpGeneral19_20 extends OpMode {
 
         //Servo Stuff
 
-        /*
-        if (gamepad2.b) {
-            Servo1.setPosition(0.35);
-        } else if (gamepad2.x) {
-            Servo1.setPosition(0.5);
-        } else if (gamepad2.y) {
-            Servo1.setPosition(0.9);
-        }else{
-
-        }*/
+        if (gamepad1.a) {
+            if (FoundationServo.getPosition() < 0.6 && FoundationServo.getPosition() > 0.4) {
+                FoundationServo.setPosition(0);
+            } else {
+                FoundationServo.setPosition(0.5);
+            }
+        }
 
 
         // Show the elapsed game time and wheel power.
