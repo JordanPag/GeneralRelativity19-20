@@ -92,18 +92,10 @@ public class TeleOpGeneral19_20 extends OpMode {
 
         if (gamepad1.right_stick_x < -threshold || gamepad1.right_stick_x > threshold) {
             //Strafing with right stick
-            if(gamepad1.left_bumper){
-                FrontLeft.setPower(gamepad1.right_stick_x/2);
-                FrontRight.setPower(-gamepad1.right_stick_x/2);
-                BackLeft.setPower(-gamepad1.right_stick_x/2);
-                BackRight.setPower(gamepad1.right_stick_x/2);
-            }
-            else{
-                FrontLeft.setPower(gamepad1.right_stick_x);
-                FrontRight.setPower(-gamepad1.right_stick_x);
-                BackLeft.setPower(-gamepad1.right_stick_x);
-                BackRight.setPower(gamepad1.right_stick_x);
-            }
+            FrontLeft.setPower(gamepad1.right_stick_x);
+            FrontRight.setPower(-gamepad1.right_stick_x);
+            BackLeft.setPower(-gamepad1.right_stick_x);
+            BackRight.setPower(gamepad1.right_stick_x);
 
         } else if (gamepad1.left_stick_y < -threshold || gamepad1.left_stick_y > threshold || gamepad1.left_stick_x < -threshold || gamepad1.left_stick_x > threshold) {
             //Forward/backward and turning with left stick
@@ -115,25 +107,15 @@ public class TeleOpGeneral19_20 extends OpMode {
             double rightPower = Range.clip(drive - turn, -1.0, 1.0) * 0.8;
 
             if (leftPower > threshold || leftPower < -threshold || rightPower < -threshold || rightPower > threshold) {
-                if (gamepad1.left_bumper) {
-                    FrontLeft.setPower(leftPower / 2);
-                    BackLeft.setPower(leftPower / 2);
-                    FrontRight.setPower(rightPower / 2);
-                    BackRight.setPower(rightPower / 2);
-                } else {
-                    FrontLeft.setPower(leftPower);
-                    BackLeft.setPower(leftPower);
-                    FrontRight.setPower(rightPower);
-                    BackRight.setPower(rightPower);
-                }
-
+                FrontLeft.setPower(leftPower);
+                BackLeft.setPower(leftPower);
+                FrontRight.setPower(rightPower);
+                BackRight.setPower(rightPower);
             } else {
                 FrontRight.setPower(0);
                 FrontLeft.setPower(0);
                 BackLeft.setPower(0);
                 BackRight.setPower(0);
-                //   double leftPower;
-                //   double rightPower;
             }
 
         } else {
@@ -141,20 +123,44 @@ public class TeleOpGeneral19_20 extends OpMode {
             FrontLeft.setPower(0);
             BackLeft.setPower(0);
             BackRight.setPower(0);
-            //   double leftPower;
-            //   double rightPower;
         }
 
         //intake motors
         double intakePower = .9;
+        int right = 0;
+        int left = 0;
+
         if (gamepad1.right_trigger > .2) {
             IntakeRight.setPower(intakePower);
+            right = 1;
+        } else if (gamepad1.right_bumper) {
+            IntakeRight.setPower(-intakePower);
+            IntakeLeft.setPower(-intakePower);
+            Treadmill.setPower(-intakePower);
+            right = -1;
+        }
+
+        if (gamepad1.left_trigger > .2) {
             IntakeLeft.setPower(intakePower);
+            left = 1;
+        } else if (gamepad1.left_bumper) {
+            IntakeLeft.setPower(-intakePower);
+            left = -1;
+        }
+
+        if (right == 1 && left == 1) {
             Treadmill.setPower(intakePower);
-        } else{
-            IntakeRight.setPower(0);
-            IntakeLeft.setPower(0);
+        } else if (right == -1 && left == -1) {
+            Treadmill.setPower(-intakePower);
+        } else {
             Treadmill.setPower(0);
+        }
+
+        if (right == 0) {
+            IntakeRight.setPower(0);
+        }
+        if (left == 0) {
+            IntakeLeft.setPower(0);
         }
 
 
