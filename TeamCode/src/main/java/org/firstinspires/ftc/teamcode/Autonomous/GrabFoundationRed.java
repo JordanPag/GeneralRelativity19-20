@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "Grab Foundation (Blue)", group = "Sensor")
-public class GrabFoundationBlue extends LinearOpMode{
+@Autonomous(name = "Grab Foundation (Red)", group = "Sensor")
+public class GrabFoundationRed extends LinearOpMode{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -68,12 +68,12 @@ public class GrabFoundationBlue extends LinearOpMode{
         while (opModeIsActive()) {
             // Start button is pressed
             FoundationServo.setPosition(0);
-            strafeRightWithEncoders(0.5, 2300);
+            strafeLeftWithEncoders(0.5, 2300);
             FoundationServo.setPosition(0.5);
             delay(500);
-            strafeLeftWithEncoders(0.5,2800);
+            strafeRightWithEncoders(0.5,2800);
             FoundationServo.setPosition(0);
-            moveBackwardWithEncoders(0.5, 2000);
+            moveForwardWithEncoders(0.5, 2000);
 
             // End of auto
             break;
