@@ -27,6 +27,8 @@ public class TeleOpGeneral19_20 extends OpMode {
     private DcMotor IntakeRight;
     private DcMotor Treadmill;
     private Servo FoundationServo;
+    private Servo Claw;
+    private Servo ClawTurn;
     double startTime = runtime.milliseconds();
 
     @Override
@@ -44,6 +46,8 @@ public class TeleOpGeneral19_20 extends OpMode {
         IntakeRight = hardwareMap.get(DcMotor.class, "IntakeRight");
         Treadmill = hardwareMap.get(DcMotor.class, "Treadmill");
         FoundationServo = hardwareMap.get(Servo.class, "FoundationServo");
+        //Claw = hardwareMap.get(Servo.class, "Claw");
+        //ClawTurn = hardwareMap.get(Servo.class, "ClawTurn");
 
 
 
@@ -125,25 +129,25 @@ public class TeleOpGeneral19_20 extends OpMode {
             BackRight.setPower(0);
         }
 
-        //intake motors
+        //intake motors (2nd controller)
         double intakePower = .9;
         int right = 0;
         int left = 0;
 
-        if (gamepad1.right_trigger > .2) {
+        if (gamepad2.right_trigger > .2) {
             IntakeRight.setPower(intakePower);
             right = 1;
-        } else if (gamepad1.right_bumper) {
+        } else if (gamepad2.right_bumper) {
             IntakeRight.setPower(-intakePower);
             IntakeLeft.setPower(-intakePower);
             Treadmill.setPower(-intakePower);
             right = -1;
         }
 
-        if (gamepad1.left_trigger > .2) {
+        if (gamepad2.left_trigger > .2) {
             IntakeLeft.setPower(intakePower);
             left = 1;
-        } else if (gamepad1.left_bumper) {
+        } else if (gamepad2.left_bumper) {
             IntakeLeft.setPower(-intakePower);
             left = -1;
         }
