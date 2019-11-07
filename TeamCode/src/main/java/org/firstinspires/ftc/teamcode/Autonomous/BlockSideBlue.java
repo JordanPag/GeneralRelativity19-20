@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "Grab Foundation (Blue)", group = "Sensor")
-public class GrabFoundationBlue extends LinearOpMode{
+@Autonomous(name = "Block Side (Blue)", group = "Sensor")
+public class BlockSideBlue extends LinearOpMode{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -67,14 +67,23 @@ public class GrabFoundationBlue extends LinearOpMode{
         waitForStart();
         while (opModeIsActive()) {
             // Start button is pressed
-            FoundationServo.setPosition(0);
-            strafeRightWithEncoders(0.5, 2300);
-            FoundationServo.setPosition(0.5);
-            delay(500);
-            strafeLeftWithEncoders(0.5,2800);
-            turnLeftWithEncoders(0.5, 200);
-            FoundationServo.setPosition(0);
-            moveBackwardWithEncoders(0.5, 2000);
+
+            strafeLeftWithEncoders(0.5, 2300);
+            IntakeLeft.setPower(0.9);
+            IntakeRight.setPower(0.9);
+            Treadmill.setPower(0.9);
+            moveForwardWithEncoders(0.8,400);
+            delay(1000);
+            IntakeLeft.setPower(0);
+            IntakeRight.setPower(0);
+            Treadmill.setPower(0);
+            strafeRightWithEncoders(0.5,400);
+            moveBackwardWithEncoders(0.5, 3000);
+            strafeLeftWithEncoders(0.5, 500);
+            moveBackwardWithEncoders(0.5, 300);
+            Treadmill.setPower(0.9);
+            delay(2000);
+            Treadmill.setPower(0);
 
             // End of auto
             break;
@@ -146,23 +155,6 @@ public class GrabFoundationBlue extends LinearOpMode{
         BackRight.setPower(power);
         while(FrontLeft.getCurrentPosition() < start + count) {
             telemetry.addData("Left motor position", FrontLeft.getCurrentPosition());
-            telemetry.update();
-            idle();
-        }
-        FrontLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackLeft.setPower(0);
-        BackRight.setPower(0);
-    }
-
-    public void turnLeftWithEncoders(double power, int count){
-        int start = FrontRight.getCurrentPosition();
-        FrontLeft.setPower(-power);
-        FrontRight.setPower(power);
-        BackLeft.setPower(-power);
-        BackRight.setPower(power);
-        while(FrontRight.getCurrentPosition() < start + count) {
-            telemetry.addData("Left motor position", FrontRight.getCurrentPosition());
             telemetry.update();
             idle();
         }
