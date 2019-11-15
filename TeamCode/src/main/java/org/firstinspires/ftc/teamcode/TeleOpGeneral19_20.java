@@ -30,6 +30,7 @@ public class TeleOpGeneral19_20 extends OpMode {
     private Servo Claw;
     private Servo ClawTurn;
     double startTime = runtime.milliseconds();
+    boolean servoIsDown;
 
     @Override
     public void init() {
@@ -68,6 +69,10 @@ public class TeleOpGeneral19_20 extends OpMode {
         IntakeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         IntakeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         Treadmill.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        if(FoundationServo.getPosition() < 0.6 && FoundationServo.getPosition() > 0.4) {
+            servoIsDown = true;
+        }
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -131,16 +136,18 @@ public class TeleOpGeneral19_20 extends OpMode {
 
         //intake motors (2nd controller)
         double intakePower = .9;
+        double treadmillPower = 1.0;
         int right = 0;
         int left = 0;
 
+        //Move right intake motor with the right bumper and trigger, and left with left bumper and trigger
         if (gamepad2.right_trigger > .2) {
             IntakeRight.setPower(intakePower);
             right = 1;
         } else if (gamepad2.right_bumper) {
             IntakeRight.setPower(-intakePower);
             IntakeLeft.setPower(-intakePower);
-            Treadmill.setPower(-intakePower);
+            Treadmill.setPower(-treadmillPower);
             right = -1;
         }
 
@@ -152,10 +159,11 @@ public class TeleOpGeneral19_20 extends OpMode {
             left = -1;
         }
 
+        //If left and right are powered in the same direction then the treadmill goes that direction
         if (right == 1 && left == 1) {
-            Treadmill.setPower(intakePower);
+            Treadmill.setPower(treadmillPower);
         } else if (right == -1 && left == -1) {
-            Treadmill.setPower(-intakePower);
+            Treadmill.setPower(-treadmillPower);
         } else {
             Treadmill.setPower(0);
         }
@@ -167,23 +175,33 @@ public class TeleOpGeneral19_20 extends OpMode {
             IntakeLeft.setPower(0);
         }
 
+        //The treadmill can also be controlled separately with the left stick on controller 2
+        if(Math.abs(gamepad2.left_stick_y) > 0.2) {
+            if(gamepad2.left_stick_y > 0) {
+                Treadmill.setPower(treadmillPower);
+            } else {
+                Treadmill.setPower(-treadmillPower);
+            }
+        } else if(right != 1 && left != 1) {
+            Treadmill.setPower(0);
+        }
+
 
         //Servo Stuff
 
         if (gamepad1.a) {
-            if (FoundationServo.getPosition() < 0.6 && FoundationServo.getPosition() > 0.4) {
+            if (servoIsDown) {
                 FoundationServo.setPosition(0);
+                servoIsDown = false;
             } else {
                 FoundationServo.setPosition(0.5);
+                servoIsDown = true;
             }
         }
 
 
-        // Show the elapsed game time and wheel power.
+        // Show the elapsed game time
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
-        /*
-         * Code to run ONCE after the driver hits STOP
-         */
     }
 }

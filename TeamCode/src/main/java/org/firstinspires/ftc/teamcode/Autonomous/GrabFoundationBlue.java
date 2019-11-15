@@ -67,13 +67,21 @@ public class GrabFoundationBlue extends LinearOpMode{
         waitForStart();
         while (opModeIsActive()) {
             // Start button is pressed
+
             FoundationServo.setPosition(0);
+
+            //Go to foundation
             strafeRightWithEncoders(0.5, 2300);
+            //Grab foundation
             FoundationServo.setPosition(0.5);
             delay(500);
+
+            //Bring foundation back into building site
             strafeLeftWithEncoders(0.5,2800);
             turnLeftWithEncoders(0.5, 200);
             FoundationServo.setPosition(0);
+
+            //Navigate under the skybridge
             moveBackwardWithEncoders(0.5, 2000);
 
             // End of auto
@@ -162,7 +170,7 @@ public class GrabFoundationBlue extends LinearOpMode{
         BackLeft.setPower(-power);
         BackRight.setPower(power);
         while(FrontRight.getCurrentPosition() < start + count) {
-            telemetry.addData("Left motor position", FrontRight.getCurrentPosition());
+            telemetry.addData("Right motor position", FrontRight.getCurrentPosition());
             telemetry.update();
             idle();
         }

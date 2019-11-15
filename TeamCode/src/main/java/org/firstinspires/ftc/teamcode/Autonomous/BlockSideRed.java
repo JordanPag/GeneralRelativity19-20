@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "Block Side (Blue)", group = "Sensor")
-public class BlockSideBlue extends LinearOpMode{
+@Autonomous(name = "Block Side (Red)", group = "Sensor")
+public class BlockSideRed extends LinearOpMode{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -68,12 +68,9 @@ public class BlockSideBlue extends LinearOpMode{
         while (opModeIsActive()) {
             // Start button is pressed
 
-            //Go to the block
-            strafeLeftWithEncoders(0.5, 300);
-            turnRightWithEncoders(0.5,50);
-            strafeLeftWithEncoders(0.5, 2000);
-
-            //Grab the block
+            strafeRightWithEncoders(0.5, 300);
+            turnLeftWithEncoders(0.5,50);
+            strafeRightWithEncoders(0.5, 2000);
             IntakeLeft.setPower(0.9);
             IntakeRight.setPower(0.9);
             Treadmill.setPower(0.9);
@@ -82,14 +79,10 @@ public class BlockSideBlue extends LinearOpMode{
             IntakeLeft.setPower(0);
             IntakeRight.setPower(0);
             Treadmill.setPower(0);
-
-            //Bring the block to the foundation (not moved yet)
-            strafeRightWithEncoders(0.5,700);
+            strafeLeftWithEncoders(0.5,700);
             moveBackwardWithEncoders(0.5, 3300);
-            strafeLeftWithEncoders(0.5, 1000);
+            strafeRightWithEncoders(0.5, 1000);
             moveBackwardWithEncoders(0.5, 700);
-
-            //Put the block onto the foundation
             Treadmill.setPower(0.9);
             IntakeLeft.setPower(0.9);
             IntakeRight.setPower(0.9);
@@ -100,21 +93,7 @@ public class BlockSideBlue extends LinearOpMode{
             Treadmill.setPower(0);
             moveForwardWithEncoders(0.5,500);
             moveBackwardWithEncoders(0.5,500);
-            moveForwardWithEncoders(0.5, 100);
-
-            //Pull the platform into the building site
-            /*
-            strafeRightWithEncoders(0.5,700);
-            moveBackwardWithEncoders(0.5,800);
-            FoundationServo.setPosition(0);
-            strafeLeftWithEncoders(0.5, 300);
-            FoundationServo.setPosition(0.5);
-            delay(500);
-            strafeRightWithEncoders(0.5,2800);
-            turnRightWithEncoders(0.5, 200);
-            FoundationServo.setPosition(0);
-            moveForwardWithEncoders(0.5, 2000);
-            */
+            moveForwardWithEncoders(0.5, 200);
 
             // End of auto
             break;
