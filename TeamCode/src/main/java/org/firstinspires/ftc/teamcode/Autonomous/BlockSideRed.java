@@ -68,9 +68,12 @@ public class BlockSideRed extends LinearOpMode{
         while (opModeIsActive()) {
             // Start button is pressed
 
-            strafeRightWithEncoders(0.5, 300);
+            //Go to the block
+            strafeRightWithEncoders(0.5, 1700);
             turnLeftWithEncoders(0.5,50);
-            strafeRightWithEncoders(0.5, 2000);
+            strafeRightWithEncoders(0.5, 700);
+
+            //Grab the block
             IntakeLeft.setPower(0.9);
             IntakeRight.setPower(0.9);
             Treadmill.setPower(0.9);
@@ -79,10 +82,14 @@ public class BlockSideRed extends LinearOpMode{
             IntakeLeft.setPower(0);
             IntakeRight.setPower(0);
             Treadmill.setPower(0);
+
+            //Bring the block to the foundation (not moved yet)
             strafeLeftWithEncoders(0.5,700);
             moveBackwardWithEncoders(0.5, 3300);
-            strafeRightWithEncoders(0.5, 1000);
+            strafeRightWithEncoders(0.5, 1300);
             moveBackwardWithEncoders(0.5, 700);
+
+            //Put the block onto the foundation
             Treadmill.setPower(0.9);
             IntakeLeft.setPower(0.9);
             IntakeRight.setPower(0.9);
@@ -93,7 +100,21 @@ public class BlockSideRed extends LinearOpMode{
             Treadmill.setPower(0);
             moveForwardWithEncoders(0.5,500);
             moveBackwardWithEncoders(0.5,500);
-            moveForwardWithEncoders(0.5, 200);
+            moveForwardWithEncoders(0.5, 100);
+
+            //Pull the platform into the building site
+            strafeLeftWithEncoders(0.5,1400);
+            moveBackwardWithEncoders(0.5,1600);
+            FoundationServo.setPosition(0);
+            strafeRightWithEncoders(0.5, 300);
+            FoundationServo.setPosition(0.5);
+            delay(500);
+            strafeLeftWithEncoders(0.5,2800);
+            FoundationServo.setPosition(0);
+            moveForwardWithEncoders(0.5, 700);
+            strafeRightWithEncoders(0.5,100);
+            moveForwardWithEncoders(0.5,1800);
+
 
             // End of auto
             break;

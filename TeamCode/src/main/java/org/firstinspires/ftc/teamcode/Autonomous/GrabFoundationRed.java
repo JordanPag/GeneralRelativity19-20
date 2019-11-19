@@ -67,13 +67,23 @@ public class GrabFoundationRed extends LinearOpMode{
         waitForStart();
         while (opModeIsActive()) {
             // Start button is pressed
+
             FoundationServo.setPosition(0);
-            strafeLeftWithEncoders(0.5, 2300);
+
+            //Go to foundation
+            strafeRightWithEncoders(0.5, 2300);
+            //Grab foundation
             FoundationServo.setPosition(0.5);
             delay(500);
-            strafeRightWithEncoders(0.5,2800);
+
+            //Bring foundation back into building site
+            strafeLeftWithEncoders(0.5,2800);
             FoundationServo.setPosition(0);
-            moveForwardWithEncoders(0.5, 2000);
+
+            //Navigate under the skybridge
+            moveForwardWithEncoders(0.5, 500);
+            strafeRightWithEncoders(0.5,100);
+            moveForwardWithEncoders(0.5,2000);
 
             // End of auto
             break;

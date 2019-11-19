@@ -78,11 +78,13 @@ public class GrabFoundationBlue extends LinearOpMode{
 
             //Bring foundation back into building site
             strafeLeftWithEncoders(0.5,2800);
-            turnLeftWithEncoders(0.5, 200);
+            //turnLeftWithEncoders(0.5, 200);
             FoundationServo.setPosition(0);
 
             //Navigate under the skybridge
-            moveBackwardWithEncoders(0.5, 2000);
+            moveBackwardWithEncoders(0.5, 500);
+            strafeRightWithEncoders(0.5,100);
+            moveBackwardWithEncoders(0.5,2000);
 
             // End of auto
             break;
