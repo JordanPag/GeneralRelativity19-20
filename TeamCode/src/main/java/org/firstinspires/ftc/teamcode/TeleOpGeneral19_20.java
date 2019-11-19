@@ -99,27 +99,23 @@ public class TeleOpGeneral19_20 extends OpMode {
     public void loop() {
         double threshold = 0.2;
 
-        if (gamepad1.right_stick_x < -threshold || gamepad1.right_stick_x > threshold) {
-            //Strafing with right stick
-            FrontLeft.setPower(gamepad1.right_stick_x);
-            FrontRight.setPower(-gamepad1.right_stick_x);
-            BackLeft.setPower(-gamepad1.right_stick_x);
-            BackRight.setPower(gamepad1.right_stick_x);
-
-        } else if (gamepad1.left_stick_y < -threshold || gamepad1.left_stick_y > threshold || gamepad1.left_stick_x < -threshold || gamepad1.left_stick_x > threshold) {
-            //Forward/backward and turning with left stick
+        if (gamepad1.right_stick_x < -threshold || gamepad1.right_stick_x > threshold || gamepad1.left_stick_y < -threshold || gamepad1.left_stick_y > threshold || gamepad1.left_stick_x < -threshold || gamepad1.left_stick_x > threshold) {
+            //Forward/backward and strafing with the left stick, turning with the right
 
             double drive = -gamepad1.left_stick_y;
-            double turn = gamepad1.left_stick_x;
+            double turn = gamepad1.right_stick_x;
+            double strafe = gamepad1.left_stick_x;
             //make sure left and right power are outside threshold
-            double leftPower = Range.clip(drive + turn, -1.0, 1.0) * 0.8;
-            double rightPower = Range.clip(drive - turn, -1.0, 1.0) * 0.8;
+            double frontLeftPower = Range.clip(drive + turn + strafe, -1.0, 1.0) * 0.8;
+            double frontRightPower = Range.clip(drive - turn - strafe, -1.0, 1.0) * 0.8;
+            double backLeftPower = Range.clip(drive + turn - strafe, -1.0, 1.0) * 0.8;
+            double backRightPower = Range.clip(drive - turn + strafe, -1.0, 1.0) * 0.8;
 
-            if (leftPower > threshold || leftPower < -threshold || rightPower < -threshold || rightPower > threshold) {
-                FrontLeft.setPower(leftPower);
-                BackLeft.setPower(leftPower);
-                FrontRight.setPower(rightPower);
-                BackRight.setPower(rightPower);
+            if (Math.abs(frontLeftPower) > threshold || Math.abs(backLeftPower) > threshold || Math.abs(frontRightPower) > threshold || Math.abs(backRightPower) > threshold) {
+                FrontLeft.setPower(frontLeftPower);
+                BackLeft.setPower(backLeftPower);
+                FrontRight.setPower(frontRightPower);
+                BackRight.setPower(backRightPower);
             } else {
                 FrontRight.setPower(0);
                 FrontLeft.setPower(0);
