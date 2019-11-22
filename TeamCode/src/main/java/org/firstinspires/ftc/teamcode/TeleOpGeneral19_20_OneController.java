@@ -14,8 +14,8 @@ import com.qualcomm.robotcore.util.Range;
  * Created by Jordan Paglione and Alec Chen on 10/1/19.
  */
 //@Disabled
-@TeleOp(name="TeleOp", group="Iterative Opmode")
-public class TeleOpGeneral19_20 extends OpMode {
+@TeleOp(name="One controller", group="Iterative Opmode")
+public class TeleOpGeneral19_20_OneController extends OpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -137,20 +137,20 @@ public class TeleOpGeneral19_20 extends OpMode {
         int left = 0;
 
         //Move right intake motor with the right bumper and trigger, and left with left bumper and trigger
-        if (gamepad2.right_trigger > .2) {
+        if (gamepad1.right_trigger > .2) {
             IntakeRight.setPower(intakePower);
             right = 1;
-        } else if (gamepad2.right_bumper) {
+        } else if (gamepad1.right_bumper) {
             IntakeRight.setPower(-intakePower);
             IntakeLeft.setPower(-intakePower);
             Treadmill.setPower(-treadmillPower);
             right = -1;
         }
 
-        if (gamepad2.left_trigger > .2) {
+        if (gamepad1.left_trigger > .2) {
             IntakeLeft.setPower(intakePower);
             left = 1;
-        } else if (gamepad2.left_bumper) {
+        } else if (gamepad1.left_bumper) {
             IntakeLeft.setPower(-intakePower);
             left = -1;
         }
