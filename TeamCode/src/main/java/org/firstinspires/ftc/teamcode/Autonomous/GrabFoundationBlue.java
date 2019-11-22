@@ -62,7 +62,7 @@ public class GrabFoundationBlue extends LinearOpMode{
         BackRight.setDirection(DcMotor.Direction.FORWARD);
         IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
         IntakeRight.setDirection(DcMotor.Direction.FORWARD);
-        Treadmill.setDirection(DcMotor.Direction.REVERSE);
+        Treadmill.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
         while (opModeIsActive()) {

@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "Grab Foundation (Red)", group = "Sensor")
-public class GrabFoundationRed extends LinearOpMode{
+@Autonomous(name = "Block Side (Blue, foundation moved)", group = "Sensor")
+public class BlockSideBlueFoundation extends LinearOpMode{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -68,22 +68,44 @@ public class GrabFoundationRed extends LinearOpMode{
         while (opModeIsActive()) {
             // Start button is pressed
 
-            FoundationServo.setPosition(0);
+            //Go to the block
+            strafeLeftWithEncoders(0.5, 2300);
 
-            //Go to foundation
-            strafeRightWithEncoders(0.5, 2300);
-            //Grab foundation
-            FoundationServo.setPosition(0.5);
+            //Grab the block
+            IntakeLeft.setPower(0.9);
+            IntakeRight.setPower(0.9);
+            Treadmill.setPower(0.9);
+            moveForwardWithEncoders(0.6,200);
+            delay(1000);
+            IntakeLeft.setPower(0);
+            IntakeRight.setPower(0);
+            Treadmill.setPower(0);
+
+            //Bring the block to the foundation (already moved)
+            strafeRightWithEncoders(0.5,800);
+            moveBackwardWithEncoders(0.5, 3400);
+            strafeLeftWithEncoders(0.5,1000);
+            moveBackwardWithEncoders(0.5,1400);
+            turnLeftWithEncoders(0.5,1100);
+            moveBackwardWithEncoders(0.5, 2000);
+
+            //Put the block onto the foundation
+            Treadmill.setPower(0.9);
+            IntakeLeft.setPower(0.9);
+            IntakeRight.setPower(0.9);
             delay(500);
-
-            //Bring foundation back into building site
-            strafeLeftWithEncoders(0.5,2800);
-            FoundationServo.setPosition(0);
+            IntakeLeft.setPower(0);
+            IntakeRight.setPower(0);
+            delay(1500);
+            Treadmill.setPower(0);
+            moveForwardWithEncoders(0.5,500);
+            moveBackwardWithEncoders(0.5,500);
+            moveForwardWithEncoders(0.5, 200);
 
             //Navigate under the skybridge
-            moveForwardWithEncoders(0.5, 500);
-            strafeRightWithEncoders(0.5,100);
-            moveForwardWithEncoders(0.5,2000);
+            turnRightWithEncoders(0.5,1100);
+            moveForwardWithEncoders(0.5,2600);
+
 
             // End of auto
             break;
@@ -153,6 +175,40 @@ public class GrabFoundationRed extends LinearOpMode{
         FrontRight.setPower(power);
         BackLeft.setPower(power);
         BackRight.setPower(power);
+        while(FrontLeft.getCurrentPosition() < start + count) {
+            telemetry.addData("Left motor position", FrontLeft.getCurrentPosition());
+            telemetry.update();
+            idle();
+        }
+        FrontLeft.setPower(0);
+        FrontRight.setPower(0);
+        BackLeft.setPower(0);
+        BackRight.setPower(0);
+    }
+
+    public void turnLeftWithEncoders(double power, int count){
+        int start = FrontRight.getCurrentPosition();
+        FrontLeft.setPower(-power);
+        FrontRight.setPower(power);
+        BackLeft.setPower(-power);
+        BackRight.setPower(power);
+        while(FrontRight.getCurrentPosition() < start + count) {
+            telemetry.addData("Right motor position", FrontRight.getCurrentPosition());
+            telemetry.update();
+            idle();
+        }
+        FrontLeft.setPower(0);
+        FrontRight.setPower(0);
+        BackLeft.setPower(0);
+        BackRight.setPower(0);
+    }
+
+    public void turnRightWithEncoders(double power, int count){
+        int start = FrontLeft.getCurrentPosition();
+        FrontLeft.setPower(power);
+        FrontRight.setPower(-power);
+        BackLeft.setPower(power);
+        BackRight.setPower(-power);
         while(FrontLeft.getCurrentPosition() < start + count) {
             telemetry.addData("Left motor position", FrontLeft.getCurrentPosition());
             telemetry.update();

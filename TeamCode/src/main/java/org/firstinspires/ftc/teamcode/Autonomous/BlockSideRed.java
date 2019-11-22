@@ -62,7 +62,7 @@ public class BlockSideRed extends LinearOpMode{
         BackRight.setDirection(DcMotor.Direction.FORWARD);
         IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
         IntakeRight.setDirection(DcMotor.Direction.FORWARD);
-        Treadmill.setDirection(DcMotor.Direction.REVERSE);
+        Treadmill.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
         while (opModeIsActive()) {
@@ -70,8 +70,8 @@ public class BlockSideRed extends LinearOpMode{
 
             //Go to the block
             strafeRightWithEncoders(0.5, 1700);
-            turnLeftWithEncoders(0.5,50);
-            strafeRightWithEncoders(0.5, 700);
+            turnLeftWithEncoders(0.5,20);
+            strafeRightWithEncoders(0.5, 800);
 
             //Grab the block
             IntakeLeft.setPower(0.9);
@@ -84,9 +84,9 @@ public class BlockSideRed extends LinearOpMode{
             Treadmill.setPower(0);
 
             //Bring the block to the foundation (not moved yet)
-            strafeLeftWithEncoders(0.5,700);
+            strafeLeftWithEncoders(0.5,1100);
             moveBackwardWithEncoders(0.5, 3300);
-            strafeRightWithEncoders(0.5, 1300);
+            strafeRightWithEncoders(0.5, 1200);
             moveBackwardWithEncoders(0.5, 700);
 
             //Put the block onto the foundation
@@ -106,7 +106,7 @@ public class BlockSideRed extends LinearOpMode{
             strafeLeftWithEncoders(0.5,1400);
             moveBackwardWithEncoders(0.5,1600);
             FoundationServo.setPosition(0);
-            strafeRightWithEncoders(0.5, 300);
+            strafeRightWithEncoders(0.5, 700);
             FoundationServo.setPosition(0.5);
             delay(500);
             strafeLeftWithEncoders(0.5,2800);
