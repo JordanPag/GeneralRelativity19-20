@@ -104,12 +104,12 @@ public class BlockSideBlue extends LinearOpMode{
             strafeRightWithEncoders(0.5,1000);
             turnLeftWithEncoders(0.5,2200);
             moveForwardWithEncoders(0.5,1200);
-            FoundationServo.setPosition(0);
-            strafeRightWithEncoders(0.5, 700);
             FoundationServo.setPosition(0.5);
+            strafeRightWithEncoders(0.5, 700);
+            FoundationServo.setPosition(0);
             delay(500);
             strafeLeftWithEncoders(0.5,2800);
-            FoundationServo.setPosition(0);
+            FoundationServo.setPosition(0.5);
 
             //Navigate under the skybridge
             moveBackwardWithEncoders(0.5, 700);

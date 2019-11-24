@@ -105,12 +105,12 @@ public class BlockSideRed extends LinearOpMode{
             //Pull the platform into the building site
             strafeLeftWithEncoders(0.5,1400);
             moveBackwardWithEncoders(0.5,1600);
-            FoundationServo.setPosition(0);
-            strafeRightWithEncoders(0.5, 700);
             FoundationServo.setPosition(0.5);
+            strafeRightWithEncoders(0.5, 700);
+            FoundationServo.setPosition(0);
             delay(500);
             strafeLeftWithEncoders(0.5,2800);
-            FoundationServo.setPosition(0);
+            FoundationServo.setPosition(0.5);
             moveForwardWithEncoders(0.5, 700);
             strafeRightWithEncoders(0.5,100);
             moveForwardWithEncoders(0.5,1800);

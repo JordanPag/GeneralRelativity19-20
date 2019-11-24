@@ -30,7 +30,6 @@ public class TeleOpGeneral19_20 extends OpMode {
     private Servo Claw;
     private Servo ClawTurn;
     double startTime = runtime.milliseconds();
-    boolean servoIsDown;
 
     @Override
     public void init() {
@@ -69,10 +68,6 @@ public class TeleOpGeneral19_20 extends OpMode {
         IntakeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         IntakeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         Treadmill.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        if(FoundationServo.getPosition() < 0.6 && FoundationServo.getPosition() > 0.4) {
-            servoIsDown = true;
-        }
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -186,13 +181,12 @@ public class TeleOpGeneral19_20 extends OpMode {
         //Servo Stuff
 
         if (gamepad1.a) {
-            if (servoIsDown) {
-                FoundationServo.setPosition(0);
-                servoIsDown = false;
-            } else {
-                FoundationServo.setPosition(0.5);
-                servoIsDown = true;
-            }
+            //Servo down
+            FoundationServo.setPosition(0);
+        }
+        if (gamepad1.b) {
+            //Servo up
+            FoundationServo.setPosition(0.5);
         }
 
 
