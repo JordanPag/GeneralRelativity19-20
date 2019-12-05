@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -39,6 +40,7 @@ public class BlockSideBlue extends LinearOpMode{
     private DcMotor IntakeRight;
     private DcMotor Treadmill;
     private Servo FoundationServo;
+    private BNO055IMU imu;
 
     @Override
     public void runOpMode() {
@@ -53,6 +55,29 @@ public class BlockSideBlue extends LinearOpMode{
         IntakeRight = hardwareMap.get(DcMotor.class, "IntakeRight");
         Treadmill = hardwareMap.get(DcMotor.class, "Treadmill");
         FoundationServo = hardwareMap.get(Servo.class, "FoundationServo");
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled = false;
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
+
+        //will delete this part later
+        telemetry.addData("Mode", "calibrating...");
+        telemetry.update();
+
+        // make sure the imu gyro is calibrated before continuing.
+        while (!isStopRequested() && !imu.isGyroCalibrated())
+        {
+            sleep(50);
+            idle();
+        }
+
+        telemetry.addData("Mode", "waiting for start");
+        telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
+        telemetry.update();
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -82,6 +107,7 @@ public class BlockSideBlue extends LinearOpMode{
             Treadmill.setPower(0);
 
             //Bring the block to the foundation (not moved yet)
+            turnRightWithEncoders(0.5,100);
             strafeRightWithEncoders(0.5,800);
             moveBackwardWithEncoders(0.5, 3400);
             strafeLeftWithEncoders(0.5, 1300);

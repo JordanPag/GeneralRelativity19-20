@@ -77,16 +77,16 @@ public class BlockSideRed extends LinearOpMode{
             IntakeLeft.setPower(0.9);
             IntakeRight.setPower(0.9);
             Treadmill.setPower(0.9);
-            moveForwardWithEncoders(0.8,400);
+            moveForwardWithEncoders(0.8,200);
             delay(1000);
             IntakeLeft.setPower(0);
             IntakeRight.setPower(0);
             Treadmill.setPower(0);
 
             //Bring the block to the foundation (not moved yet)
-            strafeLeftWithEncoders(0.5,1100);
-            moveBackwardWithEncoders(0.5, 3300);
-            strafeRightWithEncoders(0.5, 1200);
+            strafeLeftWithEncoders(0.5,1500);
+            moveBackwardWithEncoders(0.5, 3100);
+            strafeRightWithEncoders(0.5, 1600);
             moveBackwardWithEncoders(0.5, 700);
 
             //Put the block onto the foundation
@@ -104,7 +104,7 @@ public class BlockSideRed extends LinearOpMode{
 
             //Pull the platform into the building site
             strafeLeftWithEncoders(0.5,1400);
-            moveBackwardWithEncoders(0.5,1600);
+            moveBackwardWithEncoders(0.5,1700);
             FoundationServo.setPosition(0.5);
             strafeRightWithEncoders(0.5, 700);
             FoundationServo.setPosition(0);
@@ -113,7 +113,8 @@ public class BlockSideRed extends LinearOpMode{
             FoundationServo.setPosition(0.5);
             moveForwardWithEncoders(0.5, 700);
             strafeRightWithEncoders(0.5,100);
-            moveForwardWithEncoders(0.5,1800);
+            turnRightWithEncoders(0.5,20);
+            moveForwardWithEncoders(0.5,1900);
 
 
             // End of auto
