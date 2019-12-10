@@ -82,9 +82,10 @@ public class BlockSideBlueFoundation extends LinearOpMode{
             Treadmill.setPower(0);
 
             //Bring the block to the foundation (already moved)
+            turnRightWithEncoders(0.5,100);
             strafeRightWithEncoders(0.5,800);
             moveBackwardWithEncoders(0.5, 3400);
-            strafeLeftWithEncoders(0.5,1000);
+            strafeLeftWithEncoders(0.5, 900);
             moveBackwardWithEncoders(0.5,1400);
             turnLeftWithEncoders(0.5,1100);
             moveBackwardWithEncoders(0.5, 2000);
@@ -104,7 +105,7 @@ public class BlockSideBlueFoundation extends LinearOpMode{
 
             //Navigate under the skybridge
             turnRightWithEncoders(0.5,1100);
-            moveForwardWithEncoders(0.5,2600);
+            moveForwardWithEncoders(0.5,2300);
 
 
             // End of auto

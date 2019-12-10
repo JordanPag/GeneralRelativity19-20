@@ -70,23 +70,23 @@ public class BlockSideRedFoundation extends LinearOpMode{
 
             //Go to the block
             strafeRightWithEncoders(0.5, 1700);
-            turnLeftWithEncoders(0.5,50);
-            strafeRightWithEncoders(0.5, 700);
+            turnLeftWithEncoders(0.5,20);
+            strafeRightWithEncoders(0.5, 800);
 
             //Grab the block
             IntakeLeft.setPower(0.9);
             IntakeRight.setPower(0.9);
             Treadmill.setPower(0.9);
-            moveForwardWithEncoders(0.6,400);
+            moveForwardWithEncoders(0.8,200);
             delay(1000);
             IntakeLeft.setPower(0);
             IntakeRight.setPower(0);
             Treadmill.setPower(0);
 
             //Bring the block to the foundation (already moved)
-            strafeLeftWithEncoders(0.5,800);
+            strafeLeftWithEncoders(0.5,1500);
             moveBackwardWithEncoders(0.5, 3300);
-            strafeRightWithEncoders(0.5,1000);
+            strafeRightWithEncoders(0.5,1600);
             moveBackwardWithEncoders(0.5,1400);
             turnRightWithEncoders(0.5,1100);
             moveBackwardWithEncoders(0.5, 2000);
@@ -106,7 +106,7 @@ public class BlockSideRedFoundation extends LinearOpMode{
 
             //Navigate under the skybridge
             turnLeftWithEncoders(0.5,1100);
-            moveForwardWithEncoders(0.5,2600);
+            moveForwardWithEncoders(0.5,2300);
 
 
             // End of auto
