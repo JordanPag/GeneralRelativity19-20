@@ -137,8 +137,6 @@ public class TeleOpGeneral19_20 extends OpMode {
             right = 1;
         } else if (gamepad2.right_bumper) {
             IntakeRight.setPower(-intakePower);
-            IntakeLeft.setPower(-intakePower);
-            Treadmill.setPower(-treadmillPower);
             right = -1;
         }
 

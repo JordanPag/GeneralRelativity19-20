@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "Block Side (Red)", group = "Sensor")
-public class BlockSideRed extends LinearOpMode{
+@Autonomous(name = "Get 2 Blocks (Red)", group = "Sensor")
+public class Grab2Red extends LinearOpMode{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -84,10 +84,11 @@ public class BlockSideRed extends LinearOpMode{
             Treadmill.setPower(0);
 
             //Bring the block to the foundation (not moved yet)
-            strafeLeftWithEncoders(0.5,1500);
-            moveBackwardWithEncoders(0.5, 3100);
-            strafeRightWithEncoders(0.5, 1600);
-            moveBackwardWithEncoders(0.5, 700);
+            moveBackwardWithEncoders(0.8,200);
+            strafeLeftWithEncoders(0.8,1200);
+            moveBackwardWithEncoders(0.8, 2700);
+            strafeRightWithEncoders(0.8, 1400);
+            moveBackwardWithEncoders(0.8, 700);
 
             //Put the block onto the foundation
             Treadmill.setPower(0.9);
@@ -96,28 +97,66 @@ public class BlockSideRed extends LinearOpMode{
             delay(500);
             IntakeLeft.setPower(0);
             IntakeRight.setPower(0);
-            delay(1500);
-            Treadmill.setPower(0);
-            moveForwardWithEncoders(0.5,500);
-            moveBackwardWithEncoders(0.5,500);
+            delay(500);
+            moveForwardWithEncoders(0.5,300);
+            moveBackwardWithEncoders(0.5,300);
+            delay(500);
             moveForwardWithEncoders(0.5, 100);
+            Treadmill.setPower(0);
 
-            //Pull the platform into the building site
-            strafeLeftWithEncoders(0.5,1400);
-            moveBackwardWithEncoders(0.5,1700);
+            //Pull the foundation into the building site
             FoundationServo.setPosition(0.5);
-            strafeRightWithEncoders(0.5, 700);
+            strafeLeftWithEncoders(0.8,1200);
+            moveBackwardWithEncoders(0.8,1450);
+            strafeRightWithEncoders(0.5, 800);
             FoundationServo.setPosition(0);
             delay(500);
-            strafeLeftWithEncoders(0.5,2800);
+            strafeLeftWithEncoders(0.8,2800);
             FoundationServo.setPosition(0.5);
 
-            //Navigate under the skybridge
-            moveForwardWithEncoders(0.5, 700);
-            strafeRightWithEncoders(0.5,100);
-            turnRightWithEncoders(0.5,20);
-            moveForwardWithEncoders(0.5,1900);
+            //Go get another block
+            moveForwardWithEncoders(0.8, 700);
+            strafeRightWithEncoders(0.8,100);
+            turnRightWithEncoders(0.8,20);
+            moveForwardWithEncoders(0.8, 1300);
+            strafeRightWithEncoders(0.8,1700);
+            moveForwardWithEncoders(0.8,2000);
+            strafeRightWithEncoders(0.5, 1300);
 
+            //Grab the block
+            IntakeLeft.setPower(0.9);
+            IntakeRight.setPower(0.9);
+            Treadmill.setPower(0.9);
+            moveForwardWithEncoders(0.8,900);
+            delay(1000);
+            IntakeLeft.setPower(0);
+            IntakeRight.setPower(0);
+            Treadmill.setPower(0);
+
+            //Bring the block to the foundation
+            moveBackwardWithEncoders(0.8,1100);
+            strafeLeftWithEncoders(0.8,1250);
+            moveBackwardWithEncoders(0.8, 3300);
+            strafeLeftWithEncoders(0.8,150);
+            moveBackwardWithEncoders(0.8,200);
+
+            //Put the block onto the foundation
+            Treadmill.setPower(0.9);
+            IntakeLeft.setPower(0.9);
+            IntakeRight.setPower(0.9);
+            delay(500);
+            IntakeLeft.setPower(0);
+            IntakeRight.setPower(0);
+            delay(500);
+            moveForwardWithEncoders(0.5,500);
+            moveBackwardWithEncoders(0.5,500);
+            delay(500);
+
+            //Navigate under the skybridge
+            moveForwardWithEncoders(0.8,200);
+            strafeRightWithEncoders(0.8,200);
+            moveForwardWithEncoders(0.8, 500);
+            Treadmill.setPower(0);
 
             // End of auto
             break;

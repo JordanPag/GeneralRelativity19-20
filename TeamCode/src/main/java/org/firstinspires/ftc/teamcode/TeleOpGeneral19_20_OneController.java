@@ -137,8 +137,6 @@ public class TeleOpGeneral19_20_OneController extends OpMode {
             right = 1;
         } else if (gamepad1.right_bumper) {
             IntakeRight.setPower(-intakePower);
-            IntakeLeft.setPower(-intakePower);
-            Treadmill.setPower(-treadmillPower);
             right = -1;
         }
 
