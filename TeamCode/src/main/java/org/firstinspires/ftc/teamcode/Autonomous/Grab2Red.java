@@ -97,7 +97,7 @@ public class Grab2Red extends LinearOpMode{
             delay(500);
             IntakeLeft.setPower(0);
             IntakeRight.setPower(0);
-            delay(500);
+            delay(800);
             moveForwardWithEncoders(0.5,300);
             moveBackwardWithEncoders(0.5,300);
             delay(500);
@@ -107,7 +107,7 @@ public class Grab2Red extends LinearOpMode{
             //Pull the foundation into the building site
             FoundationServo.setPosition(0.5);
             strafeLeftWithEncoders(0.8,1200);
-            moveBackwardWithEncoders(0.8,1450);
+            moveBackwardWithEncoders(0.8,1600);
             strafeRightWithEncoders(0.5, 800);
             FoundationServo.setPosition(0);
             delay(500);
@@ -115,13 +115,13 @@ public class Grab2Red extends LinearOpMode{
             FoundationServo.setPosition(0.5);
 
             //Go get another block
-            moveForwardWithEncoders(0.8, 700);
+            moveForwardWithEncoders(0.8, 800);
             strafeRightWithEncoders(0.8,100);
             turnRightWithEncoders(0.8,20);
             moveForwardWithEncoders(0.8, 1300);
             strafeRightWithEncoders(0.8,1700);
             moveForwardWithEncoders(0.8,2000);
-            strafeRightWithEncoders(0.5, 1300);
+            strafeRightWithEncoders(0.5, 1500);
 
             //Grab the block
             IntakeLeft.setPower(0.9);
@@ -156,6 +156,7 @@ public class Grab2Red extends LinearOpMode{
             moveForwardWithEncoders(0.8,200);
             strafeRightWithEncoders(0.8,200);
             moveForwardWithEncoders(0.8, 500);
+            delay(1000);
             Treadmill.setPower(0);
 
             // End of auto
