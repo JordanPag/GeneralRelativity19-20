@@ -108,9 +108,9 @@ public class BlockSideBlue extends LinearOpMode{
 
             //Bring the block to the foundation (not moved yet)
             turnRightWithEncoders(0.5,100);
-            strafeRightWithEncoders(0.5,800);
+            strafeRightWithEncoders(0.5,900);
             moveBackwardWithEncoders(0.5, 3400);
-            strafeLeftWithEncoders(0.5, 1300);
+            strafeLeftWithEncoders(0.5, 1050);
             moveBackwardWithEncoders(0.5, 700);
 
             //Put the block onto the foundation
@@ -127,10 +127,10 @@ public class BlockSideBlue extends LinearOpMode{
             moveForwardWithEncoders(0.5, 100);
 
             //Pull the platform into the building site
-            strafeRightWithEncoders(0.5,1000);
+            FoundationServo.setPosition(0.5);
+            strafeRightWithEncoders(0.5,1250);
             turnLeftWithEncoders(0.5,2200);
             moveForwardWithEncoders(0.5,1200);
-            FoundationServo.setPosition(0.5);
             strafeRightWithEncoders(0.5, 700);
             FoundationServo.setPosition(0);
             delay(500);

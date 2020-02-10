@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "Block Side (Red)", group = "Sensor")
-public class BlockSideRed extends LinearOpMode{
+@Autonomous(name = "Move at end", group = "Sensor")
+public class MoveAtEnd extends LinearOpMode{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -68,56 +68,8 @@ public class BlockSideRed extends LinearOpMode{
         while (opModeIsActive()) {
             // Start button is pressed
 
-            //Go to the block
-            strafeRightWithEncoders(0.5, 1700);
-            turnLeftWithEncoders(0.5,20);
-            strafeRightWithEncoders(0.5, 800);
-
-            //Grab the block
-            IntakeLeft.setPower(0.9);
-            IntakeRight.setPower(0.9);
-            Treadmill.setPower(0.9);
-            moveForwardWithEncoders(0.8,200);
-            delay(1000);
-            IntakeLeft.setPower(0);
-            IntakeRight.setPower(0);
-            Treadmill.setPower(0);
-
-            //Bring the block to the foundation (not moved yet)
-            strafeLeftWithEncoders(0.5,1500);
-            moveBackwardWithEncoders(0.5, 3200);
-            strafeRightWithEncoders(0.5, 1600);
-            moveBackwardWithEncoders(0.5, 700);
-
-            //Put the block onto the foundation
-            Treadmill.setPower(0.9);
-            IntakeLeft.setPower(0.9);
-            IntakeRight.setPower(0.9);
-            delay(500);
-            IntakeLeft.setPower(0);
-            IntakeRight.setPower(0);
-            delay(1500);
-            Treadmill.setPower(0);
-            moveForwardWithEncoders(0.5,500);
-            moveBackwardWithEncoders(0.5,500);
-            moveForwardWithEncoders(0.5, 100);
-
-            //Pull the platform into the building site
-            strafeLeftWithEncoders(0.5,1400);
-            moveBackwardWithEncoders(0.5,1700);
-            FoundationServo.setPosition(0.5);
-            strafeRightWithEncoders(0.5, 700);
-            FoundationServo.setPosition(0);
-            delay(500);
-            strafeLeftWithEncoders(0.5,2800);
-            FoundationServo.setPosition(0.5);
-
-            //Navigate under the skybridge
-            moveForwardWithEncoders(0.5, 700);
-            strafeRightWithEncoders(0.5,100);
-            turnRightWithEncoders(0.5,20);
-            moveForwardWithEncoders(0.5,1900);
-
+            delay(25000);
+            moveForwardWithEncoders(0.5, 200);
 
             // End of auto
             break;

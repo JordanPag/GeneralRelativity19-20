@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "Locate Skystone", group = "Sensor")
-public class LocateSkystone extends LinearOpMode{
+@Autonomous(name = "Locate Skystone (Red)", group = "Sensor")
+public class LocateSkystoneRed extends LinearOpMode{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -88,6 +88,7 @@ public class LocateSkystone extends LinearOpMode{
             moveForwardWithEncoders(0.5,100);
             delay(300);
 
+            //Test if stone 2 is a skystone
             Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
                     (int) (sensorColor.green() * SCALE_FACTOR),
                     (int) (sensorColor.blue() * SCALE_FACTOR),
@@ -110,6 +111,7 @@ public class LocateSkystone extends LinearOpMode{
             telemetry.update();
 
             if(!isSkystone) {
+                //If stone 2 isn't a skystone, see if stone 1 is
                 moveForwardWithEncoders(0.5,250);
                 delay(300);
 
@@ -130,6 +132,7 @@ public class LocateSkystone extends LinearOpMode{
                     isSkystone = true;
                     position = 1;
                 } else {
+                    //If stone 2 and 1 aren't skystones, then stone 3 has to be a skystone
                     position = 3;
                 }
             }
@@ -139,10 +142,9 @@ public class LocateSkystone extends LinearOpMode{
             delay(1500);
 
 
-            if (position == 1) {
+            //Get the stone by moving backwards a different amount based on the position of the skystone
+            if (position == 1 || position == 2) {
                 moveBackwardWithEncoders(0.5, 1050);
-            } else if (position == 2) {
-                moveBackwardWithEncoders(0.5, 1000);
             } else {
                 moveBackwardWithEncoders(0.5,550);
             }
@@ -150,11 +152,79 @@ public class LocateSkystone extends LinearOpMode{
             IntakeLeft.setPower(0.9);
             IntakeRight.setPower(0.9);
             Treadmill.setPower(1.0);
-            moveForwardWithEncoders(0.5, 400);
+            moveForwardWithEncoders(0.5, 300);
             delay(1000);
             IntakeLeft.setPower(0);
             IntakeRight.setPower(0);
-            delay(300);
+            Treadmill.setPower(0);
+
+            //Bring the block to the foundation (not moved yet)
+            if (position == 1) {
+                moveBackwardWithEncoders(0.5, 100);
+            } else if (position == 3) {
+                moveBackwardWithEncoders(0.5,450);
+            }
+            strafeLeftWithEncoders(0.8,1200);
+            if (position == 2) {
+                moveBackwardWithEncoders(0.8,2350);
+            } else {
+                moveBackwardWithEncoders(0.8, 2700);
+            }
+            strafeRightWithEncoders(0.8, 1400);
+            moveBackwardWithEncoders(0.8, 700);
+
+            //Put the block onto the foundation
+            Treadmill.setPower(0.9);
+            IntakeLeft.setPower(0.9);
+            IntakeRight.setPower(0.9);
+            delay(500);
+            IntakeLeft.setPower(0);
+            IntakeRight.setPower(0);
+            delay(800);
+            moveForwardWithEncoders(0.5,300);
+            moveBackwardWithEncoders(0.5,300);
+            delay(500);
+            moveForwardWithEncoders(0.5, 100);
+            Treadmill.setPower(0);
+
+            //Pull the foundation into the building site
+            FoundationServo.setPosition(0.5);
+            strafeLeftWithEncoders(0.8,1200);
+            moveBackwardWithEncoders(0.8,1600);
+            strafeRightWithEncoders(0.5, 800);
+            FoundationServo.setPosition(0);
+            delay(500);
+            strafeLeftWithEncoders(0.8,2800);
+            FoundationServo.setPosition(0.5);
+
+            //Go get another block
+            moveForwardWithEncoders(0.8, 800);
+            strafeRightWithEncoders(0.8,100);
+            turnRightWithEncoders(0.8,20);
+            moveForwardWithEncoders(0.8, 1200);
+            strafeRightWithEncoders(0.8,2000);
+            if (position == 2) {
+                moveForwardWithEncoders(0.8, 2500);
+            } else if (position == 1) {
+                moveForwardWithEncoders(0.8,2900);
+            } else {
+                moveForwardWithEncoders(0.8, 500);
+            }
+            if (position != 3) {
+                strafeRightWithEncoders(0.5, 1000);
+            } else {
+                turnRightWithEncoders(0.5, 700);
+                moveForwardWithEncoders(0.5, 400);
+            }
+
+            //Grab the block
+            IntakeLeft.setPower(0.9);
+            IntakeRight.setPower(0.9);
+            Treadmill.setPower(0.9);
+            moveForwardWithEncoders(0.8,300);
+            delay(1000);
+            IntakeLeft.setPower(0);
+            IntakeRight.setPower(0);
             Treadmill.setPower(0);
 
             // End of auto

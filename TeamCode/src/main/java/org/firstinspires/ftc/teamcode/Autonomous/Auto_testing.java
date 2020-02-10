@@ -36,10 +36,6 @@ public class Auto_testing extends LinearOpMode {
     private DcMotor FrontRight;
     private DcMotor BackLeft;
     private DcMotor BackRight;
-    private DcMotor IntakeLeft;
-    private DcMotor IntakeRight;
-    private DcMotor Treadmill;
-    private Servo FoundationServo;
 
     @Override
     public void runOpMode() {
@@ -50,10 +46,6 @@ public class Auto_testing extends LinearOpMode {
         BackLeft = hardwareMap.get(DcMotor.class, "BackLeft");
         FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
         BackRight = hardwareMap.get(DcMotor.class, "BackRight");
-        IntakeLeft = hardwareMap.get(DcMotor.class, "IntakeLeft");
-        IntakeRight = hardwareMap.get(DcMotor.class, "IntakeRight");
-        Treadmill = hardwareMap.get(DcMotor.class, "Treadmill");
-        FoundationServo = hardwareMap.get(Servo.class, "FoundationServo");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -61,9 +53,6 @@ public class Auto_testing extends LinearOpMode {
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
         BackRight.setDirection(DcMotor.Direction.FORWARD);
-        IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
-        IntakeRight.setDirection(DcMotor.Direction.FORWARD);
-        Treadmill.setDirection(DcMotor.Direction.REVERSE);
 
         waitForStart();
         while (opModeIsActive()) {

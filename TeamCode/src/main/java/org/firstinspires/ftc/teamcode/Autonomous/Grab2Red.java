@@ -107,7 +107,7 @@ public class Grab2Red extends LinearOpMode{
             //Pull the foundation into the building site
             FoundationServo.setPosition(0.5);
             strafeLeftWithEncoders(0.8,1200);
-            moveBackwardWithEncoders(0.8,1600);
+            moveBackwardWithEncoders(0.8,1400);
             strafeRightWithEncoders(0.5, 800);
             FoundationServo.setPosition(0);
             delay(500);
@@ -115,13 +115,13 @@ public class Grab2Red extends LinearOpMode{
             FoundationServo.setPosition(0.5);
 
             //Go get another block
-            moveForwardWithEncoders(0.8, 800);
+            moveForwardWithEncoders(0.8, 600);
             strafeRightWithEncoders(0.8,100);
             turnRightWithEncoders(0.8,20);
             moveForwardWithEncoders(0.8, 1300);
-            strafeRightWithEncoders(0.8,1700);
+            strafeRightWithEncoders(0.8,1500);
             moveForwardWithEncoders(0.8,2000);
-            strafeRightWithEncoders(0.5, 1500);
+            strafeRightWithEncoders(0.5, 1000);
 
             //Grab the block
             IntakeLeft.setPower(0.9);
@@ -135,7 +135,7 @@ public class Grab2Red extends LinearOpMode{
 
             //Bring the block to the foundation
             moveBackwardWithEncoders(0.8,1100);
-            strafeLeftWithEncoders(0.8,1250);
+            strafeLeftWithEncoders(0.8,1000);
             moveBackwardWithEncoders(0.8, 3300);
             strafeLeftWithEncoders(0.8,150);
             moveBackwardWithEncoders(0.8,200);
@@ -154,7 +154,7 @@ public class Grab2Red extends LinearOpMode{
 
             //Navigate under the skybridge
             moveForwardWithEncoders(0.8,200);
-            strafeRightWithEncoders(0.8,200);
+            strafeRightWithEncoders(0.8,300);
             moveForwardWithEncoders(0.8, 500);
             delay(1000);
             Treadmill.setPower(0);
