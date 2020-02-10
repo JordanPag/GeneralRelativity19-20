@@ -27,6 +27,7 @@ public class TeleOpGeneral19_20_OneController extends OpMode {
     private DcMotor IntakeRight;
     private DcMotor Treadmill;
     private Servo FoundationServo;
+    private Servo CapstoneServo;
     private Servo Claw;
     private Servo ClawTurn;
     double startTime = runtime.milliseconds();
@@ -46,6 +47,7 @@ public class TeleOpGeneral19_20_OneController extends OpMode {
         IntakeRight = hardwareMap.get(DcMotor.class, "IntakeRight");
         Treadmill = hardwareMap.get(DcMotor.class, "Treadmill");
         FoundationServo = hardwareMap.get(Servo.class, "FoundationServo");
+        CapstoneServo = hardwareMap.get(Servo.class, "CapstoneServo");
         //Claw = hardwareMap.get(Servo.class, "Claw");
         //ClawTurn = hardwareMap.get(Servo.class, "ClawTurn");
 
@@ -181,11 +183,22 @@ public class TeleOpGeneral19_20_OneController extends OpMode {
         if (gamepad1.a) {
             //Servo down
             FoundationServo.setPosition(0);
-        }
-        if (gamepad1.b) {
+        } else if (gamepad1.b) {
             //Servo up
             FoundationServo.setPosition(0.5);
         }
+
+        //Capstone servo
+        if (gamepad1.x) {
+            //Servo down
+            telemetry.addData("Servo action", "Down");
+            CapstoneServo.setPosition(1);
+        } else if (gamepad1.y) {
+            //Servo up
+            telemetry.addData("Servo action", "Up");
+            CapstoneServo.setPosition(0);
+        }
+        telemetry.addData("Servo position", CapstoneServo.getPosition());
 
 
         // Show the elapsed game time

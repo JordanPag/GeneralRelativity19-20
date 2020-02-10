@@ -11,11 +11,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 /**
- * Created by Jordan Paglione and Alec Chen on 10/1/19.
+ * Created by Jordan Paglione on 2/10/20.
  */
 //@Disabled
-@TeleOp(name="TeleOp", group="Iterative Opmode")
-public class TeleOpGeneral19_20 extends OpMode {
+@TeleOp(name="Pass Through TeleOp", group="Iterative Opmode")
+public class TeleOpPassThrough extends OpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -25,11 +25,10 @@ public class TeleOpGeneral19_20 extends OpMode {
     private DcMotor BackRight;
     private DcMotor IntakeLeft;
     private DcMotor IntakeRight;
-    private DcMotor Treadmill;
-    private Servo FoundationServo;
-    private Servo CapstoneServo;
-    private Servo Claw;
-    private Servo ClawTurn;
+    private DcMotor PassThroughLeft;
+    private DcMotor PassThroughRight;
+    private Servo FoundationServo1;
+    private Servo FoundationServo2;
     double startTime = runtime.milliseconds();
 
     @Override
@@ -45,9 +44,10 @@ public class TeleOpGeneral19_20 extends OpMode {
         BackRight = hardwareMap.get(DcMotor.class, "BackRight");
         IntakeLeft = hardwareMap.get(DcMotor.class, "IntakeLeft");
         IntakeRight = hardwareMap.get(DcMotor.class, "IntakeRight");
-        Treadmill = hardwareMap.get(DcMotor.class, "Treadmill");
-        FoundationServo = hardwareMap.get(Servo.class, "FoundationServo");
-        CapstoneServo = hardwareMap.get(Servo.class, "CapstoneServo");
+        PassThroughLeft = hardwareMap.get(DcMotor.class, "PassThroughLeft");
+        PassThroughRight = hardwareMap.get(DcMotor.class, "PassThroughRight");
+        FoundationServo1 = hardwareMap.get(Servo.class, "FoundationServo1");
+        FoundationServo2 = hardwareMap.get(Servo.class, "FoundationServo2");
         //Claw = hardwareMap.get(Servo.class, "Claw");
         //ClawTurn = hardwareMap.get(Servo.class, "ClawTurn");
 
@@ -61,7 +61,8 @@ public class TeleOpGeneral19_20 extends OpMode {
         BackRight.setDirection(DcMotor.Direction.FORWARD);
         IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
         IntakeRight.setDirection(DcMotor.Direction.FORWARD);
-        Treadmill.setDirection(DcMotor.Direction.FORWARD);
+        PassThroughLeft.setDirection(DcMotor.Direction.REVERSE);
+        PassThroughRight.setDirection(DcMotor.Direction.FORWARD);
 
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -69,7 +70,8 @@ public class TeleOpGeneral19_20 extends OpMode {
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         IntakeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         IntakeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        Treadmill.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        PassThroughLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        PassThroughRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -129,34 +131,37 @@ public class TeleOpGeneral19_20 extends OpMode {
 
         //intake motors (2nd controller)
         double intakePower = .9;
-        double treadmillPower = 1.0;
+        double passThroughPower = 1.0;
         int right = 0;
         int left = 0;
 
         //Move right intake motor with the right bumper and trigger, and left with left bumper and trigger
-        if (gamepad2.right_trigger > .2) {
+        if (gamepad1.right_trigger > .2) {
             IntakeRight.setPower(intakePower);
             right = 1;
-        } else if (gamepad2.right_bumper) {
+        } else if (gamepad1.right_bumper) {
             IntakeRight.setPower(-intakePower);
             right = -1;
         }
 
-        if (gamepad2.left_trigger > .2) {
+        if (gamepad1.left_trigger > .2) {
             IntakeLeft.setPower(intakePower);
             left = 1;
-        } else if (gamepad2.left_bumper) {
+        } else if (gamepad1.left_bumper) {
             IntakeLeft.setPower(-intakePower);
             left = -1;
         }
 
         //If left and right are powered in the same direction then the treadmill goes that direction
         if (right == 1 && left == 1) {
-            Treadmill.setPower(treadmillPower);
+            PassThroughLeft.setPower(passThroughPower);
+            PassThroughRight.setPower(passThroughPower);
         } else if (right == -1 && left == -1) {
-            Treadmill.setPower(-treadmillPower);
+            PassThroughLeft.setPower(-passThroughPower);
+            PassThroughRight.setPower(-passThroughPower);
         } else {
-            Treadmill.setPower(0);
+            PassThroughLeft.setPower(0);
+            PassThroughRight.setPower(0);
         }
 
         if (right == 0) {
@@ -169,36 +174,42 @@ public class TeleOpGeneral19_20 extends OpMode {
         //The treadmill can also be controlled separately with the left stick on controller 2
         if(Math.abs(gamepad2.left_stick_y) > 0.2) {
             if(gamepad2.left_stick_y > 0) {
-                Treadmill.setPower(treadmillPower);
+                PassThroughLeft.setPower(passThroughPower);
+                PassThroughRight.setPower(passThroughPower);
             } else {
-                Treadmill.setPower(-treadmillPower);
+                PassThroughLeft.setPower(-passThroughPower);
+                PassThroughRight.setPower(-passThroughPower);
             }
         } else if(right != 1 && left != 1) {
-            Treadmill.setPower(0);
+            PassThroughLeft.setPower(0);
+            PassThroughRight.setPower(0);
         }
 
 
         //Servo Stuff
 
-        //Foundation servo
         if (gamepad1.a) {
-            //Servo down
-            FoundationServo.setPosition(0);
-        }
-        if (gamepad1.b) {
-            //Servo up
-            FoundationServo.setPosition(0.5);
+            //Servos down
+            FoundationServo1.setPosition(0);
+            FoundationServo2.setPosition(0);
+        } else if (gamepad1.b) {
+            //Servos up
+            FoundationServo1.setPosition(0.5);
+            FoundationServo2.setPosition(0.5);
         }
 
         //Capstone servo
+        /*
         if (gamepad1.x) {
             //Servo down
+            telemetry.addData("Servo action", "Down");
             CapstoneServo.setPosition(1);
-        }
-        if (gamepad1.y) {
+        } else if (gamepad1.y) {
             //Servo up
+            telemetry.addData("Servo action", "Up");
             CapstoneServo.setPosition(0);
         }
+        */
 
 
         // Show the elapsed game time
