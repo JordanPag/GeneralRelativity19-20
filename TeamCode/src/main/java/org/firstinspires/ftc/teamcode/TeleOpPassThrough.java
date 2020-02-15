@@ -61,8 +61,8 @@ public class TeleOpPassThrough extends OpMode {
         BackRight.setDirection(DcMotor.Direction.FORWARD);
         IntakeLeft.setDirection(DcMotor.Direction.REVERSE);
         IntakeRight.setDirection(DcMotor.Direction.FORWARD);
-        PassThroughLeft.setDirection(DcMotor.Direction.REVERSE);
-        PassThroughRight.setDirection(DcMotor.Direction.FORWARD);
+        PassThroughLeft.setDirection(DcMotor.Direction.FORWARD);
+        PassThroughRight.setDirection(DcMotor.Direction.REVERSE);
 
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -152,7 +152,7 @@ public class TeleOpPassThrough extends OpMode {
             left = -1;
         }
 
-        //If left and right are powered in the same direction then the treadmill goes that direction
+        //If left and right are powered in the same direction then the pass through goes that direction
         if (right == 1 && left == 1) {
             PassThroughLeft.setPower(passThroughPower);
             PassThroughRight.setPower(passThroughPower);
@@ -171,7 +171,7 @@ public class TeleOpPassThrough extends OpMode {
             IntakeLeft.setPower(0);
         }
 
-        //The treadmill can also be controlled separately with the left stick on controller 2
+        //The pass through can also be controlled separately with the left stick on controller 2
         if(Math.abs(gamepad2.left_stick_y) > 0.2) {
             if(gamepad2.left_stick_y > 0) {
                 PassThroughLeft.setPower(passThroughPower);

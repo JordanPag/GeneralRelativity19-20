@@ -191,12 +191,10 @@ public class TeleOpGeneral19_20_OneController extends OpMode {
         //Capstone servo
         if (gamepad1.x) {
             //Servo down
-            telemetry.addData("Servo action", "Down");
             CapstoneServo.setPosition(1);
         } else if (gamepad1.y) {
             //Servo up
-            telemetry.addData("Servo action", "Up");
-            CapstoneServo.setPosition(0);
+            CapstoneServo.setPosition(0.2);
         }
         telemetry.addData("Servo position", CapstoneServo.getPosition());
 

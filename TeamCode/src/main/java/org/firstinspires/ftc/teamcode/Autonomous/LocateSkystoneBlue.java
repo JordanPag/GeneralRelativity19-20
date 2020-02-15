@@ -85,7 +85,7 @@ public class LocateSkystoneBlue extends LinearOpMode{
             FoundationServo.setPosition(0);
             strafeRightWithEncoders(0.5, 1750);
             turnLeftWithEncoders(0.3, 1);
-            moveBackwardWithEncoders(0.5,100);
+            moveBackwardWithEncoders(0.5,150);
             delay(300);
 
             //Test if stone 2 is a skystone
@@ -112,7 +112,7 @@ public class LocateSkystoneBlue extends LinearOpMode{
 
             if(!isSkystone) {
                 //If stone 3 isn't a skystone, see if stone 2 is
-                moveBackwardWithEncoders(0.5,250);
+                moveBackwardWithEncoders(0.5,200);
                 delay(300);
 
                 Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
@@ -138,36 +138,35 @@ public class LocateSkystoneBlue extends LinearOpMode{
 
             telemetry.addData("Skystone position", position);
             telemetry.update();
-            delay(1500);
 
 
             //Get the stone by moving backwards a different amount based on the position of the skystone
             if (position == 2 || position == 3) {
-                moveForwardWithEncoders(0.5, 220);
+                moveForwardWithEncoders(0.5, 150);
             } else {
-                moveBackwardWithEncoders(0.5,550);
+                moveBackwardWithEncoders(0.5,100);
             }
             strafeRightWithEncoders(0.5, 700);
             IntakeLeft.setPower(0.9);
             IntakeRight.setPower(0.9);
             Treadmill.setPower(1.0);
-            moveForwardWithEncoders(0.5, 300);
-            delay(1000);
+            moveForwardWithEncoders(0.5, 400);
+            delay(800);
             IntakeLeft.setPower(0);
             IntakeRight.setPower(0);
-            delay(300);
             Treadmill.setPower(0);
 
             //Bring the block to the foundation (not moved yet)
+            FoundationServo.setPosition(0.5);
             strafeLeftWithEncoders(0.5,700);
             if (position == 1) {
-                moveForwardWithEncoders(0.5, 780);
+                moveForwardWithEncoders(0.5, 500);
             } else if (position == 2) {
                 moveForwardWithEncoders(0.5,300);
             }
-            moveForwardWithEncoders(0.8, 3800);
-            turnLeftWithEncoders(0.5, 1100);
-            moveBackwardWithEncoders(0.5, 300);
+            moveForwardWithEncoders(0.8, 4800);
+            turnLeftWithEncoders(0.5, 1200);
+            moveBackwardWithEncoders(0.5, 700);
 
             //Put the block onto the foundation
             Treadmill.setPower(0.9);
@@ -184,12 +183,11 @@ public class LocateSkystoneBlue extends LinearOpMode{
             Treadmill.setPower(0);
 
             //Pull the foundation into the building site
-            FoundationServo.setPosition(0.5);
             turnRightWithEncoders(0.5,1100);
-            strafeRightWithEncoders(0.5, 300);
+            strafeRightWithEncoders(0.5, 600);
             FoundationServo.setPosition(0);
             delay(500);
-            strafeLeftWithEncoders(0.8,2800);
+            strafeLeftWithEncoders(0.8,3300);
             FoundationServo.setPosition(0.5);
 
             /*//Go get another block
@@ -223,7 +221,11 @@ public class LocateSkystoneBlue extends LinearOpMode{
             Treadmill.setPower(0);*/
 
             //Navigate under the skybridge
-            moveBackwardWithEncoders(0.5,1800);
+            moveBackwardWithEncoders(0.5,2300);
+            IntakeLeft.setPower(-0.9);
+            IntakeRight.setPower(-0.9);
+            Treadmill.setPower(-1);
+            delay(3000);
 
             // End of auto
             break;

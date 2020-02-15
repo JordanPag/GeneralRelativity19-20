@@ -191,13 +191,13 @@ public class TeleOpGeneral19_20 extends OpMode {
         }
 
         //Capstone servo
-        if (gamepad1.x) {
+        if (gamepad2.a) {
             //Servo down
             CapstoneServo.setPosition(1);
         }
-        if (gamepad1.y) {
+        if (gamepad2.b) {
             //Servo up
-            CapstoneServo.setPosition(0);
+            CapstoneServo.setPosition(0.2);
         }
 
 
