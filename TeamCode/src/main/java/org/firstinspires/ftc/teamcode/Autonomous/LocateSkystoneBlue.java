@@ -88,19 +88,12 @@ public class LocateSkystoneBlue extends LinearOpMode{
             moveBackwardWithEncoders(0.5,150);
             delay(300);
 
-            //Test if stone 2 is a skystone
+            //Test if stone 3 is a skystone
             Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
                     (int) (sensorColor.green() * SCALE_FACTOR),
                     (int) (sensorColor.blue() * SCALE_FACTOR),
                     hsvValues);
 
-            telemetry.addData("Distance (cm)",
-                    String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
-            telemetry.addData("Alpha", sensorColor.alpha());
-            telemetry.addData("Red  ", sensorColor.red());
-            telemetry.addData("Green", sensorColor.green());
-            telemetry.addData("Blue ", sensorColor.blue());
-            telemetry.addData("Hue", hsvValues[0]);
             boolean isSkystone = false;
             int position = 0;
             if(hsvValues[0] >= 60.0) {
@@ -120,13 +113,6 @@ public class LocateSkystoneBlue extends LinearOpMode{
                         (int) (sensorColor.blue() * SCALE_FACTOR),
                         hsvValues);
 
-                telemetry.addData("Distance (cm)",
-                        String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
-                telemetry.addData("Alpha", sensorColor.alpha());
-                telemetry.addData("Red  ", sensorColor.red());
-                telemetry.addData("Green", sensorColor.green());
-                telemetry.addData("Blue ", sensorColor.blue());
-                telemetry.addData("Hue", hsvValues[0]);
                 if(hsvValues[0] >= 60.0) {
                     isSkystone = true;
                     position = 2;
@@ -140,9 +126,11 @@ public class LocateSkystoneBlue extends LinearOpMode{
             telemetry.update();
 
 
-            //Get the stone by moving backwards a different amount based on the position of the skystone
-            if (position == 2 || position == 3) {
+            //Get the stone by moving forwards/backwards a different amount based on the position of the skystone
+            if (position == 3) {
                 moveForwardWithEncoders(0.5, 150);
+            } else if (position == 2) {
+                moveForwardWithEncoders(0.5, 250);
             } else {
                 moveBackwardWithEncoders(0.5,100);
             }
@@ -162,9 +150,9 @@ public class LocateSkystoneBlue extends LinearOpMode{
             if (position == 1) {
                 moveForwardWithEncoders(0.5, 500);
             } else if (position == 2) {
-                moveForwardWithEncoders(0.5,300);
+                moveForwardWithEncoders(0.5,200);
             }
-            moveForwardWithEncoders(0.8, 4800);
+            moveForwardWithEncoders(0.8, 4600);
             turnLeftWithEncoders(0.5, 1200);
             moveBackwardWithEncoders(0.5, 700);
 

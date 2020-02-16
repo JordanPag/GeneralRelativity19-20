@@ -166,9 +166,9 @@ public class LocateSkystoneRed extends LinearOpMode{
             }
             strafeLeftWithEncoders(0.8,1200);
             if (position == 2) {
-                moveBackwardWithEncoders(0.8,2350);
+                moveBackwardWithEncoders(0.5,2300);
             } else {
-                moveBackwardWithEncoders(0.8, 2700);
+                moveBackwardWithEncoders(0.5, 2650);
             }
             strafeRightWithEncoders(0.8, 1400);
             moveBackwardWithEncoders(0.8, 700);
@@ -197,6 +197,7 @@ public class LocateSkystoneRed extends LinearOpMode{
             strafeLeftWithEncoders(0.8,2800);
             FoundationServo.setPosition(0.5);
 
+            /*
             //Go get another block
             moveForwardWithEncoders(0.8, 800);
             strafeRightWithEncoders(0.8,100);
@@ -226,6 +227,12 @@ public class LocateSkystoneRed extends LinearOpMode{
             IntakeLeft.setPower(0);
             IntakeRight.setPower(0);
             Treadmill.setPower(0);
+            */
+
+            //Navigate under the skybridge
+            moveForwardWithEncoders(0.8, 800);
+            strafeRightWithEncoders(0.8,100);
+            moveForwardWithEncoders(0.8, 1200);
 
             // End of auto
             break;
