@@ -48,8 +48,6 @@ public class TeleOpPassThrough extends OpMode {
         PassThroughRight = hardwareMap.get(DcMotor.class, "PassThroughRight");
         FoundationServo1 = hardwareMap.get(Servo.class, "FoundationServo1");
         FoundationServo2 = hardwareMap.get(Servo.class, "FoundationServo2");
-        //Claw = hardwareMap.get(Servo.class, "Claw");
-        //ClawTurn = hardwareMap.get(Servo.class, "ClawTurn");
 
 
 
