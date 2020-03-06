@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "Skystone Testing (Pass through)", group = "Sensor")
-public class SkystoneTestingPassThrough extends LinearOpMode{
+@Autonomous(name = "Test of skystone", group = "Sensor")
+public class GetSkystone extends LinearOpMode{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -88,8 +88,7 @@ public class SkystoneTestingPassThrough extends LinearOpMode{
 
             //Go to the block
             strafeLeftWithEncoders(0.5, 1650);
-            turnRightWithEncoders(0.3, 1);
-            moveBackwardWithEncoders(0.5,150);
+            moveBackwardWithEncoders(0.5,200);
             delay(300);
 
             //Test if stone 3 is a skystone
@@ -144,6 +143,32 @@ public class SkystoneTestingPassThrough extends LinearOpMode{
             telemetry.addData("Skystone position", position);
             telemetry.update();
             delay(1500);
+
+
+            //Get the stone by moving forwards/backwards a different amount based on the position of the skystone
+            if (position == 3) {
+                moveForwardWithEncoders(0.5, 300);
+            } if (position == 2) {
+                moveForwardWithEncoders(0.5, 400);
+            } else {
+                moveForwardWithEncoders(0.5,50);
+            }
+            //strafeLeftWithEncoders(0.5, 725);
+            turnLeftWithEncoders(0.5,350);
+            IntakeLeft.setPower(0.9);
+            IntakeRight.setPower(0.9);
+            PassThroughLeft.setPower(0.2);
+            PassThroughRight.setPower(0.2);
+            if(position == 1) {
+                moveForwardWithEncoders(0.5, 400);
+            } else {
+                moveForwardWithEncoders(0.5, 700);
+            }
+            delay(500);
+            IntakeLeft.setPower(0);
+            IntakeRight.setPower(0);
+            PassThroughLeft.setPower(0);
+            PassThroughRight.setPower(0);
 
             // End of auto
             break;

@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 /**
- * Created by Jordan Paglione on 10/7/19
+ * Created by Jordan Paglione on 2/27/20
  */
 
 import android.app.Activity;
@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
 
-@Autonomous(name = "Skystone Testing (Pass through)", group = "Sensor")
-public class SkystoneTestingPassThrough extends LinearOpMode{
+@Autonomous(name = "Turn Foundation (Blue, Pass through)", group = "Sensor")
+public class RotateFoundationBlue extends LinearOpMode{
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -41,8 +41,6 @@ public class SkystoneTestingPassThrough extends LinearOpMode{
     private DcMotor PassThroughRight;
     private Servo FoundationServo1;
     private Servo FoundationServo2;
-    ColorSensor sensorColor;
-    DistanceSensor sensorDistance;
 
     @Override
     public void runOpMode() {
@@ -60,17 +58,6 @@ public class SkystoneTestingPassThrough extends LinearOpMode{
         FoundationServo1 = hardwareMap.get(Servo.class, "FoundationServo1");
         FoundationServo2 = hardwareMap.get(Servo.class, "FoundationServo2");
 
-        sensorColor = hardwareMap.get(ColorSensor.class, "ColorSensor");
-        sensorDistance = hardwareMap.get(DistanceSensor.class, "ColorSensor");
-        float hsvValues[] = {0F, 0F, 0F};
-        final float values[] = hsvValues;
-        final double SCALE_FACTOR = 255;
-
-        // get a reference to the RelativeLayout so we can change the background
-        // color of the Robot Controller app to match the hue detected by the RGB sensor.
-        int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-        final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
-
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         FrontLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -86,64 +73,26 @@ public class SkystoneTestingPassThrough extends LinearOpMode{
         while (opModeIsActive()) {
             // Start button is pressed
 
-            //Go to the block
-            strafeLeftWithEncoders(0.5, 1650);
-            turnRightWithEncoders(0.3, 1);
-            moveBackwardWithEncoders(0.5,150);
-            delay(300);
+            FoundationServo1.setPosition(0.5);
+            FoundationServo2.setPosition(0.5);
 
-            //Test if stone 3 is a skystone
-            Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
-                    (int) (sensorColor.green() * SCALE_FACTOR),
-                    (int) (sensorColor.blue() * SCALE_FACTOR),
-                    hsvValues);
+            //Go to foundation
+            moveForwardWithEncoders(0.5,400);
+            strafeRightWithEncoders(0.5, 2300);
+            //Grab foundation
+            FoundationServo1.setPosition(0);
+            FoundationServo2.setPosition(0);
+            delay(500);
 
-            telemetry.addData("Distance (cm)",
-                    String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
-            telemetry.addData("Alpha", sensorColor.alpha());
-            telemetry.addData("Red  ", sensorColor.red());
-            telemetry.addData("Green", sensorColor.green());
-            telemetry.addData("Blue ", sensorColor.blue());
-            telemetry.addData("Hue", hsvValues[0]);
-            boolean isSkystone = false;
-            int position = 0;
-            if(hsvValues[0] >= 60.0) {
-                isSkystone = true;
-                position = 3;
-            }
-            telemetry.addData("Skystone", isSkystone);
-            telemetry.update();
+            //Bring foundation back into building site
+            strafeLeftWithEncoders(0.5,2700);
+            turnLeftWithEncoders(0.5, 2100);
+            FoundationServo1.setPosition(0.5);
+            FoundationServo2.setPosition(0.5);
+            delay(500);
 
-            if(!isSkystone) {
-                //If stone 3 isn't a skystone, see if stone 2 is
-                moveBackwardWithEncoders(0.5,200);
-                delay(300);
-
-                Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
-                        (int) (sensorColor.green() * SCALE_FACTOR),
-                        (int) (sensorColor.blue() * SCALE_FACTOR),
-                        hsvValues);
-
-                telemetry.addData("Distance (cm)",
-                        String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
-                telemetry.addData("Alpha", sensorColor.alpha());
-                telemetry.addData("Red  ", sensorColor.red());
-                telemetry.addData("Green", sensorColor.green());
-                telemetry.addData("Blue ", sensorColor.blue());
-                telemetry.addData("Hue", hsvValues[0]);
-                isSkystone = false;
-                if(hsvValues[0] >= 60.0) {
-                    isSkystone = true;
-                    position = 2;
-                } else {
-                    //If stone 3 and 2 aren't skystones, then stone 1 has to be a skystone
-                    position = 1;
-                }
-            }
-
-            telemetry.addData("Skystone position", position);
-            telemetry.update();
-            delay(1500);
+            //Navigate under the skybridge
+            strafeRightWithEncoders(0.5,2100);
 
             // End of auto
             break;
@@ -232,23 +181,6 @@ public class SkystoneTestingPassThrough extends LinearOpMode{
         BackRight.setPower(power);
         while(FrontRight.getCurrentPosition() < start + count) {
             telemetry.addData("Right motor position", FrontRight.getCurrentPosition());
-            telemetry.update();
-            idle();
-        }
-        FrontLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackLeft.setPower(0);
-        BackRight.setPower(0);
-    }
-
-    public void turnRightWithEncoders(double power, int count){
-        int start = FrontLeft.getCurrentPosition();
-        FrontLeft.setPower(power);
-        FrontRight.setPower(-power);
-        BackLeft.setPower(power);
-        BackRight.setPower(-power);
-        while(FrontLeft.getCurrentPosition() < start + count) {
-            telemetry.addData("Left motor position", FrontLeft.getCurrentPosition());
             telemetry.update();
             idle();
         }
